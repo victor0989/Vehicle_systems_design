@@ -42,3 +42,42 @@ Section: Reissner-Nordström Spacetime
     ds² = F²(–dy² + d~²) + r²(de² + sin²e dep²),
     with r = r(y, ~).
 
+
+Definitions:
+
+Definition: q > χ or equivalently χ > q
+"The event q precedes the event χ" or "the event χ follows the event q"
+Meaning: There exists at least one smooth, future-directed timelike curve that extends from q to χ.
+
+Definition: Causal Curve
+A causal curve γ(λ) is any smooth curve that is nowhere spacelike; it is timelike or null or "zero" (γ(λ) = some fixed q for all λ) or some admixture thereof.
+
+Definition: q -< χ or equivalently χ >- q
+"The event q causally precedes the event χ" or "the event χ causally follows the event q"
+Meaning: There exists at least one future-directed causal curve that extends from q to χ.
+
+Definition: J⁻(q)
+The causal past of q is the set of all events that causally precede q.
+    J⁻(q) = {χ | χ -< q}
+
+Definition: J⁺(q)
+The causal future of q is the set of all events that causally follow q.
+    J⁺(q) = {χ | χ >- q}
+
+
+Definition: J⁻(S)
+If S is a region of spacetime (e.g., a segment of a spacelike hypersurface), then J⁻(S) is the set of all events that causally precede at least one event in S.
+    J⁻(S) = {χ | χ -< q for at least one q ∈ S}
+
+Definition: J⁺(S)
+Similarly, J⁺(S) is the set of all events that causally follow at least one event in S.
+    J⁺(S) = {χ | χ >- q for at least one q ∈ S}
+
+Definition: ∂J⁺(S)
+j⁺(S) is the boundary of J⁺(S).
+
+Definition: ∂J⁻(S)
+j⁻(S) is the boundary of J⁻(S).
+
+
+
