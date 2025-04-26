@@ -23,7 +23,8 @@ Advanced vehicle systems using:
 - Rapid adaptation to evolving sensor suites  
 - High performance with low-latency DNN solutions  
 - Scalable performance and reduced time-to-market  
-- Electromagnetic suspension and gravitational field control concepts  
+- Electromagnetic suspension and gravitational field control concepts
+- Design-methods: https://www.nasa.gov/centers-and-facilities/goddard/cutting-edge-heat-shield-installed-on-nasas-parker-solar-probe/?utm_source=chatgpt.com 
 
 ---
 
