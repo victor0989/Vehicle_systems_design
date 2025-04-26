@@ -31,6 +31,7 @@ Advanced vehicle systems using:
 - Developers: https://www.xilinx.com/video/soc/automotive-zynq-7000.html
 - Militar-vehicles-solar-parker: https://ultramet.com/parker-solar-probe-heat-shield/
 - Video: https://www.youtube.com/watch?v=pOZhPz92Dic
+- Sun: https://physics.aps.org/articles/v14/176?utm_source=chatgpt.com
 
 ---
 
