@@ -41,6 +41,32 @@ Advanced vehicle systems using:
 - Militar-vehicles-solar-parker: https://ultramet.com/parker-solar-probe-heat-shield/
 - Video: https://www.youtube.com/watch?v=pOZhPz92Dic
 - Sun: https://physics.aps.org/articles/v14/176
+---
+**Tesla Summary**
+📡 Tesla Model S Sensors Overview
+Cameras (8 cameras surrounding the vehicle)
+
+-Front Radar (works under all weather conditions)
+-Ultrasonic Sensors (12 ultrasonic sensors around the vehicle)
+-IMU (Inertial Measurement Unit) (accelerometer + gyroscope)
+-High-Precision GPS
+-Vision Processor and Sensor Fusion Module (Tesla proprietary, AI-based)
+
+Note: Tesla vehicles currently do not use LIDARs (except for experimental phases).
+Elon Musk has opted for a combination of cameras, radar, and ultrasonic sensors instead.
+
+🛰️ Xilinx Sensors for Military Aircraft (Adaptable to Vehicles)
+Xilinx provides advanced sensor systems for aerospace and defense, which can be adapted to automotive projects:
+-Sensor Fusion FPGA Systems
+(integration of radar, lidar, thermal, and infrared sensors)
+-High-Speed Data Acquisition Cards
+(real-time capture and processing of flight sensor data)
+-Radiation-Hardened FPGAs (Virtex-5QV Series)
+(chips capable of surviving extreme space and military environments)
+-AI/ML Edge Inference on Sensors
+(processing data directly on the sensor node without server dependency)
+-MEMS-Based Gravimetric Sensors
+(miniaturized sensors to measure gravitational changes and accelerations)
 
 ---
 
