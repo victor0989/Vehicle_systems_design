@@ -1,6 +1,6 @@
 # Vehicle Systems Design
 
-🔭 **Project Overview**  
+ **Project Overview**  
 This project explores advanced vehicle systems using:
 
 - **General Relativity Metrics** (Kruskal-Szekeres, Reissner-Nordström, Schwarzschild)
@@ -23,7 +23,7 @@ This project explores advanced vehicle systems using:
 - Xilinx Zynq UltraScale+ MPSoC Documentation  
 - Research from physics.aps.org and cfa.harvard.edu  
 
-🌌 **Technological Advantages**  
+ **Technological Advantages**  
 - Rapid adaptation to evolving sensor suites  
 - High performance with low-latency DNN solutions  
 - Scalable performance and reduced time-to-market  
