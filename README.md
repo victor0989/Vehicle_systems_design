@@ -3,7 +3,8 @@
  **Project Overview**  
 Advanced vehicle systems using:
 
-- **General Relativity Metrics** 
+- **General Relativity Metrics**
+- Document: https://docs.google.com/document/d/e/2PACX-1vT7lilAG8VHA1UtFnDCtDKsYcuJT-Ej5LIt99RAuWhHzD2wsJhuec3JstZ6O1K1Q3OhrGGz9uZXTIzM/pub
 - **Application Acceleration** with Vitis Unified Software Platform (UG1393)
 - **Thermal Protection Materials** inspired by NASA's Parker Solar Probe
 - Sensor Integration: Design the vehicle's sensor suite using Xilinx's programmable logic devices, ensuring compatibility with automotive safety standards (ISO 26262).
@@ -30,6 +31,7 @@ Advanced vehicle systems using:
 - `/hardware`: Prototype designs and layouts
 - `/software`: Xilinx Vitis software and acceleration programs
 - `/simulations`: Relativistic and plasma physics simulations
+- Document: https://docs.google.com/document/d/e/2PACX-1vRDZdP0ltlFxcKyFDiB0sQ7luY9qU0_U2cg04i50B1Z8oDLRMO5LTXBj-hK8ahCT8BCjS9Uah1bOmJQ/pub
 
  ---
 **References**
