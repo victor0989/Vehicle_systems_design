@@ -1,0 +1,84 @@
+; input port definitions
+constant mult_prod0_port, 03;
+constant mult_prod1_port, 04;
+; output port definitions
+constant mult_src0_port, 05;
+constant mult_src1_port, 06;
+..
+mult_hard:
+   output s3, mult_src0_port
+   output s4, mult_src1_port
+   input s5, mult_prod1_port
+   input s6, mult_prod0_port
+   return
+
+//Assembly code
+   call init    ;initialize
+forever
+;main loop bod-v 
+call proc-btn 
+call proc-uart 
+call square 
+call load-led-pttn 
+call disp-led 
+jump forever 
+; initialization 
+;check & process buttons 
+;check & process uart rx 
+; calculate square 
+;store led patterns to ram 
+;output led pattern
+**************************************************************************************************************
+if (no character in UART receiving FIFO) then 
+return 
+input characters from FIFO 
+if (characters is a) then 
+input switch value 
+store it to data ram 
+display prompt 
+return 
+if (characters is b) then 
+; 
+SQUARE PROGRAM WITH A COMBINATIONAL MULTIPLIER AND UART CONSOLE 
+; 
+; 
+; 
+, 
+input switch value 
+store it to data ram 
+display prompt 
+return 
+if (characters is c) then 
+perform initialization 
+return 
+if (characters is d) then 
+dump data ram 
+return 
+display error message 
+return 
+437 
+We follow the modular development approach and further divide this routine into simpler 
+routines. A key low-level routine is tx-one-byte, which transmits 1 byte via the UART 
+port. Its code is 
+; input port definitions 
+constant rd-flag-port, 00 
+; 
+; 4 flags (xxxxtrsc): 
+I: uart tx ful l , r: uart rx not empty 
+; 
+s: s button flag, c: c button flag 
+; output port definitions 
+constant uart-tx-port , 04 
+; register alias 
+namereg sd, tx-data 
+... 
+tx-one-byte : 
+input s6, rd-f lag-port 
+test s6, 08 
+jump nz, tx-one-byte 
+;uart receiver port 
+;data to be tx by uart 
+;check uart-tx-full 
+;yes, keep on waiting 
+output tx-data, uart-tx-port ;no, write to uart tx fifo 
+return 
