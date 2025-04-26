@@ -1,0 +1,9 @@
+The following set of equations is formed:
+
+    ε0 ∇ · E = niqi + neqe                 (3.55)
+    ∇ × E = -∂B/∂t                        (3.56)
+    ∇ · B = 0                             (3.57)
+    μ0 ∇ × B = niqivi + neqeve + ε0 ∂E/∂t (3.58)
+    ∂vj/∂t + vj · ∇vj = qjnj (E + vj × B) - ∇pj   j = i, e  (3.59)
+    ∂nj/∂t + ∇ · (njvj) = 0                     j = i, e  (3.60)
+    pj = Cjnγj                                 j = i, e  (3.61)
