@@ -6,6 +6,9 @@ Advanced vehicle systems using:
 - **General Relativity Metrics** 
 - **Application Acceleration** with Vitis Unified Software Platform (UG1393)
 - **Thermal Protection Materials** inspired by NASA's Parker Solar Probe
+- Sensor Integration: Design the vehicle's sensor suite using Xilinx's programmable logic devices, ensuring compatibility with automotive safety standards (ISO 26262).
+- Material Application: Employ Parker Solar Probe-inspired materials in areas exposed to high thermal loads, such as near the reactor core or exhaust systems.
+- System Architecture: Develop a centralized processing module that aggregates sensor data, performs real-time analysis, and controls vehicle dynamics.
 
 🚀 **Applications and Inspirations**  
 - Solar radiation protection for embedded electronics
@@ -27,6 +30,9 @@ Advanced vehicle systems using:
 - `/hardware`: Prototype designs and layouts
 - `/software`: Xilinx Vitis software and acceleration programs
 - `/simulations`: Relativistic and plasma physics simulations
+
+ ---
+**References**
 - https://surpass.jhu.edu/news/wse-and-apl-collaborate-to-touch-the-sun-with-parker-solar-probe/?utm_source=chatgpt.com
 - Developers: https://www.xilinx.com/video/soc/automotive-zynq-7000.html
 - Militar-vehicles-solar-parker: https://ultramet.com/parker-solar-probe-heat-shield/
