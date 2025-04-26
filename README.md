@@ -27,6 +27,7 @@ Advanced vehicle systems using:
 - `/hardware`: Prototype designs and layouts
 - `/software`: Xilinx Vitis software and acceleration programs
 - `/simulations`: Relativistic and plasma physics simulations
+- https://surpass.jhu.edu/news/wse-and-apl-collaborate-to-touch-the-sun-with-parker-solar-probe/?utm_source=chatgpt.com
 
 ---
 
