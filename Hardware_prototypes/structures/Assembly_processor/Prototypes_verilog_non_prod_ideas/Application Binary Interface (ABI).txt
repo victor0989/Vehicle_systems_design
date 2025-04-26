@@ -1,0 +1,122 @@
+Application Binary Interface (ABI) changes for FPGA are not available in Functional Mode x86 ABI. For most optimizations where is ABI is used, they need to be disabled in functional compiler.
+Limiting DDR Analysis by Casting/Inter procedural uses:
+
+Typecasting DDR memory pointers from scalars will not work.
+
+kernel void vadd(size_t a_s,size_t b_s,size_t c){
+int* a = (size_t)a;
+int* b = (size_t)b;
+int* c = (size_t)c;
+for(int i=0; i < 64; i++){
+c[i] = a[i] + b[i];
+
+ }
+}
+
+b.DDR memory pointers
+class Cache{
+int* local;
+Cache(int *a) : local(a){}
+int read(){}
+void write(int x){}
+};
+kernel void vadd(int *a,int *b, int *c){
+ Cache ca(a);
+ for(int i=0; i < 64; i++){
+ c[i] = ca.read() + b[i];
+ }
+}
+
+// user code that errors out
+static int i = 0;
+void hls_kernel_logic(...) {
+...
+}
+//recomended
+static int i = 0;
+void hls_kernel_logic(...){
+ i = 0;
+ ...
+}
+
+The SystemC model feature supports all the XRT-managed kernel execution models using ap_ctrl_hs and ap_ctrl_chain. It also supports modeling both AXI4 memory mapped interfaces (m_axi) and AXI4-Stream interfaces (axis), in addition to register reads and write of the s_axilite interface.
+
+nclude header files "xtlm_ap_ctrl.h" and "xtlm.h".
+Derive your kernel from a predefined class based on the supported kernel types: ap_ctrl_chain, ap_ctrl_hs, etc.
+Declare and define the AXI interfaces used on your kernel.
+Add required kernel arguments with the correct address offset and size.
+Write the kernel body in main() thread.
+
+//Vitis_Accel_Examples
+#include "xtml.h"
+#include "xtml_ap_ctrl.h"
+
+class vadd : public xsc::xtml_ap_ctr_hs
+{
+
+   public:
+       SC_HAS_PROCESS(vadd);
+       vadd(sc_module_name, xsc::common_cpp::properties&_properties):
+   xsc::xtml_ap_ctrl_hs(name)
+{
+            DEFINE_XTLM_AXIMM_MASTER_IF(in1, 32);
+            DEFINE_XTLM_AXIMM_MASTER_IF(in2, 32);
+            DEFINE_XTLM_AXIMM_MASTER_IF(out_r, 32);
+ 
+            ADD_MEMORY_IF_ARG(in1,   0x10, 0x8);
+            ADD_MEMORY_IF_ARG(in2,   0x18, 0x8);
+            ADD_MEMORY_IF_ARG(out_r, 0x20, 0x8);
+            ADD_SCALAR_ARG(size,     0x28, 0x4);
+ 
+            SC_THREAD(main_thread);
+        }
+}
+
+//pag coding a SystemC model
+// aximm interfaces
+DECLARE_XTLM_AXIMM_MASTER_IF(in1);
+DECLARE_XTLM_AXIMM_MASTER_IF(in2);
+DECLARE_XTLM_AXIMM_MASTER_IF(out_r);
+
+// Declare scalar
+unsigned int size;
+
+void main_thread()
+{
+   wait(ev_ap_start); //wait on ap_start evento
+
+//copy kernel args configured by host...
+uint64_t in1_base_addr = kernel_args[0];
+uint64_t in2_base_addr = kernel_args[1];
+uint64_t out_r_base_addr = kernel_args[2];
+size = kernel_args[3];
+
+unsigned data1, data2, data_r;
+for(int i = 0; i < size; i++) {
+    in1->read(in1_base_addr + (i*4), (unsigned char*)&data1); //read from in1 interface
+    in2->read(in2_base_addr + (i*4), (unsigned char*)&data2); //read from in2 interface
+
+//add data1 & data2 and write back result
+data_r = data1 + data2;
+out_r->write(out_r_base_addr + (i*4), (unsigned char*)&dara_r); //write result
+ }
+   ap_done();
+  }
+};
+
+DECLARE_XTLM_AXIMM_MASTER_IF(in1);
+DEFINE_XTLM_AXIMM_MASTER_IF(in1, 32);
+
+ADD_MEMORY_IF_ARG(in1, 0x10, 0x8);
+
+The kernel waits for a signal to begin from XRT (ev_ap_start).
+Kernel arguments are mapped to variables in the SystemC model.
+The inputs are read.
+The vectors are added and the result is captured.
+The output is written back to the host.
+The finished signal is sent to XRT (ap_done).
+
+create_sc_xo vadd.cpp 
+v++ --link --platform <platform> --target hw_emu \
+--config ./vadd.cfg --input_files ../vadd.xo --output ../vadd.link.xclbin \
+--optimize 0 --save-temps --temp_dir ./hw_emu

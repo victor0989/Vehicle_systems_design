@@ -1,0 +1,52 @@
+//282 RAM vhdl
+//verilog logic 334,337 RAM, 378 VGA RF controller ideas Prototipe
+
+module hex_to_sseg
+  (
+   input wire [3:0] _,
+   input wire _,
+   output reg [7:0] _ // output active
+   );
+
+always @*
+begin
+   case(_)
+      4'hO: sseg [6: 01 = 7'b0000001; 
+      4'hl: sseg[6:0] = 7'b1001111; 
+      4'h2: sseg [6:0] = 7'b0010010; 
+      4'h3: sseg [6:01 = 7'b0000110; 
+      4'h4: sseg[6:0] = 7'b1001100; 
+      4'h5: sseg [6:0] = 7'b0100100; 
+      4'h6: sseg [6:01 = 7'b0100000; 
+      4'h7: sseg[6:0] = 7'bOOOlill; 
+      4'h8 : sseg C6: 01 = 7' b0000000 ; 
+      4'h9 : sseg [6: 01 = 7'b0000100 ; 
+      4'ha: sseg [6:01 = 7'b0001000; 
+      4'hb: sseg [6:0] = 7'b1100000; 
+      4'hc: sseg[6:0] = 7'b0110001; 
+      4'hd: sseg [6:01 = 7'blOOOOlO; 
+      4'he: sseg C6:Ol = 7'b0110000; 
+      default: _[6:0] = 7'b0111000; //4'hf
+    endcase
+    _[7] = dp;
+
+// Hex-to-LED decoder
+//102
+module hex_to_sseg_test
+   (
+    input wire _,
+    input wire [7:0] _,
+    output wire [3:0] _,
+    output wire [7:0] _,
+   );
+// singl
+wire [7:0] inc;
+wire [7:0] led0, led1, led2, led3;
+
+// increment
+// assign inc = _ + 1;
+
+// 4 LSBs of input
+hex_to_sseg sseg_unit_0
+   (.hex(_[3:0]), .dp(1'b0), .sseg(led0));
+//103__100___no se

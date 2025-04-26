@@ -1,0 +1,116 @@
+-- dual-port RAM with synchronous read
+-- modified from XST 8.1 rams_11
+
+
+entity xilinx_dual_port_ram_sync is
+   generic(
+        ADDR_WIDTH: integer:=6;
+        DATA_WIDTH:integer:=8;
+      );
+      port(
+          _: in std_logic;
+          _: in std_Logic;
+          _: in std_logic_vector(ADDR_WIDTH-1 downto 0);
+          _: in std_logic_vector(ADDR_WIDTH-1 downto 0);
+          _: in std_logic_vector(DATA_WIDTH-1 downto 0);
+         _: out std_logic_vector(DATA_WIDTH-1 downto 0);
+         _: out std_logic_vector(DATA_WIDTH-1 downto 0)
+);
+end xilinx_dual_port_ram_sync;
+
+architecture beh_arch of xilinx_dual_port_ram_sync is
+   type ram_type is array (0 to 2**ADDR_WIDTH-1)
+  of std_logic_vector (DATA_WIDTH-1 downto 0);
+   signal ram: ram_type;
+   signal addr_a_reg, addr_b_reg:
+          std_logic_vector(ADDR_WIDTH-1 downto 0);
+begin
+   process(_)
+   begin
+     if (_'evento and _='1') then
+         if (_='1') then
+             ram(to_integer(unsigned(addr_a))) <= din_a;
+     end if;
+     addr_a_reg <= addr_a;
+     addr_b_reg <= addr_b;
+    end if;
+  end process;
+  dout_a <= ram(to_integer(unsigned(addr_a_reg)));
+dout_b <= ram(to_integer(unsigned(addr_b_reg)));
+end begh_arch;
+
+//C progrm
+int count_bits(unsigned int data )
+ {
+  int cnt = 0;
+   
+  while( data !=0) {
+    data = data & (data -1);
+    cnt++;
+
+ }
+}
+
+static unsigned char byte_bit_count[256];
+
+void initialize_count_bits ()
+{
+ int cnt, i, data;
+
+ for(i =0; i<256; i++) {
+   cnt = 0;
+   data = i;
+   while(data != 0) {data= data &(data -1); cnt++;}
+   byte_bit_count[i] = cnt;
+
+ }
+}
+
+data = xxxxx10000
+data -1 = xxxxx01111
+
+//284 ROM
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+entity xilinx_rom_sync_template is
+   port(
+      _: in std_logic;
+      _: in std_logic_vector(3 downto 0);
+      _: out std_logic_vector(6 downto 0);
+   );
+end xilinx_rom_sync_template;
+
+architecture arch of xilinx_rom_sync_template is
+   constant ADDR_WIDTH: integer:=4;
+   constant DATA_WIDTH: integer:=7;
+   type rom_type is array (0 to 2**ADDR_WIDTH-1)
+      of std_logic_vector(DATA_WIDTH-1 downto 0);
+--ROM def
+constant HEX2LED_RM: rom_type:=( --2power4 by 7)
+  "0000001", -- addr 00
+  "1001111", -- addr 01
+  "0010010",
+  "0000110",
+  "1001100",
+  "0100100",
+  "0001111",
+  "0000000",
+  "0000100",
+  "1100000",
+  "0110001",
+  "1000010", -- addr 13
+  "0110000", -- addr 14
+  "0111000" -- addr 15
+);
+signal addr_reg: std_logic_vector(ADDR_WIDTH-1 downto 0);
+begin
+  -- addr registr to infr block RAM
+process(_)
+begin
+   if(_'evento and _ = '1') then
+     addr_reg <= addr;
+   end if;
+ end process;
+ data <= HEX2LED_ROM(to_integer(unsigned(addr_reg)));
+end arch;

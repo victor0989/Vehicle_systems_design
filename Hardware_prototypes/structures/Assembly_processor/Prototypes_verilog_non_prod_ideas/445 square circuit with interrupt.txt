@@ -1,0 +1,149 @@
+//445 square circuit with interrupt
+
+library ieee; 
+use ieee. std_logic_1164.all; 
+use ieee.numeric_std.all;
+entity pico_int is
+  port(
+     _, _: in std_logic;
+     _: in std_logic_vector(7 downto 0);
+     _: in std_logic_vector(1 downto 0);
+     _: out std_logic_vector(3 downto 0);
+     _:  out std_logic_vector(7 downto 0);
+);
+end pico_int;
+
+architecture arch of pico_int is
+  -- KCPSM3/ROM signals
+  signal address: std_logic_vector(9 downto 0);
+  signal instruction: std_logic_vector(17 downto 0);
+  signal port_id: std_Logic_vector(7 downto 0);
+  signal in_port, out_port: std_logic_vector(7 downto 0);
+  signal write_strobe, read_strobe: std_logic;
+  signal interrupt, interrupt_ack: std_logic;
+-- I/O
+-- output enable
+signal en_d: std_logic_vector(1 downto 0);
+-- four digit seven segment led
+signal sseg_reg: std_logic_vector(7 downto 0);
+signal an_reg: std_logic_vector(3 downto 0);
+-- two pushbuttns
+signal btnc_flag_reg, btnc_flag_next: std_logic;
+signal btns_flag_reg, btns_flag_next:
+std_logic;
+signal set_btnc_flag, set_btns_flag: std_logic;
+signal clr_btn_flag: std_logic;
+-- interrupt-related signals
+signal timer_reg, timer_next: unsigned(8 downto 0);
+signal ten_us_tick: std_logic;
+signal timer_flag_reg, timer_flag_next: std_logic;
+begin
+//I/O modls
+-- KCPSM ROM
+proc-unit : entity work. kcpsm3 
+port map( 
+clk=>clk, reset =>reset, 
+address=>address , instruction=>instruction , 
+port-id=>port-id, write-strobe=>write-strobe, 
+out-port=>out-port , read-strobe=>read-strobe, 
+in-port =>in-port , 
+interrupt-ack=>interrupt-ack); 
+interrupt => interrupt , 
+rom-unit : entity work. int-rom 
+port map( 
+clk => clk, address=>address , 
+instruction=>instruction);
+-- outport id:
+-- outport port id:
+-- 0x00: an
+-- 0x01: ssg
+-- registr
+process ()
+begin
+   if (_'evento and _='1') then
+      if en_d(0)='1' then
+         an_reg <= out_port(3 downto 0);
+      end if;
+      if en_d(1)='1' then sseg_reg <= out_port; end if;
+end if;
+end process;
+an <= an_reg;
+sseg = sseg_reg;
+-- decode
+process(port_id,write_strobe)
+begin
+   en_d <= (others=>'0');
+   if write_strobe='1' then
+      case port_id(0) is
+         when '0' => en_d <="01";
+         when others => en_d <="10";
+      end case;
+    end if;
+  end process;
+-- input interface
+-- input port id
+-- 0x00:
+-- 0x01
+-- input register
+process(_)
+begin
+   if (_'event and _='1') then
+//446
+      btnc_flag_reg <= btnc_flag_next;
+      btnc_flag_reg <= btns_flag_next;
+   end if;
+ end process;
+
+btnc_flag_next <= '1' when set_btnc_flag='1' else
+'0' when clr_btn_flag='0' when clr_btn_flag='1' else
+btnc_flag_reg;
+btns-flag-next <= ’1’ when set-btns-flag=’l’ else 
+’0’ when clr-btn-flag=’l’ else 
+btns-flag-reg; 
+
+--decoding circui t for clear signals 
+clr-btn-flag <=’l’ when read-strobe=’l’ and 
+port-id(O)=’O’ else 
+’0’ ; 
+--input multiplexing 
+process(port_id,btns_flag_reg,btnc_flag_reg,sw)
+begin
+   case port_id(0) is
+      when '0' =>
+         in_port <= "000000" &
+                    btns_flag_reg & btnc_flag_reg;
+
+when others =>
+   in_port <= sw;
+end case;
+end process;
+-- interrupt interfce
+-- 10 nanoseconds
+process()
+begin
+   if (_'evento and _='1') then
+      timer_reg <= timer_next;
+   end if;
+ end process;
+ timer_next <= (others=>'0') when timer_reg=499 else
+timer_reg+1;
+ten_us_tick <= '1' when timer_reg=499 else '0';
+-- 10 ns tick  flsg
+process()
+begin
+   if (_'event and _='1') then
+      timer_flag_reg <= timer_flag_next;
+   end if;
+ end process;
+ timer_flag_next <= '1' when ten_us_tick='1' else
+'0' when interrupt_ack='1' else
+timer_flag_reg;
+--request
+interrupt <= timer_flag_reg;
+
+m is a 12-bit unsigned number. 
+ThefourLSBsofrnis”1111”. 
+0 The timer has an 8-bit register to store the eight MSBs of rn. The register is treated 
+as a new output port of PicoBlaze. 
+0 A new pushbutton controls the loading of the register. When it is pressed, PicoBlaze 
+inputs the value from the 8-bit switch and outputs the value to the timer’s register. 
