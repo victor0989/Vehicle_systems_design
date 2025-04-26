@@ -7,3 +7,38 @@ The following set of equations is formed:
     ∂vj/∂t + vj · ∇vj = qjnj (E + vj × B) - ∇pj   j = i, e  (3.59)
     ∂nj/∂t + ∇ · (njvj) = 0                     j = i, e  (3.60)
     pj = Cjnγj                                 j = i, e  (3.61)
+
+
+FLAT SPACETIME IN y, ~, e, ep COORDINATES
+
+Section: Flat Spacetime in y, ~, e, ep Coordinates
+
+(b) Show the location of the regions [+, [-, [0, and 1- of flat spacetime:
+    [+] : y = π, ~ = 0
+    [-] : y = -π, ~ = 0
+    [0] : y = 0, ~ = π
+    [1+] : y + ~ ≈ π, with -π < y - ~ < π
+    [1-] : y - ~ ≈ -π, with -π < y + ~ < π
+(Refer to equations) variables/points
+
+(c) In flat spacetime, on a (y, ~) coordinate diagram (Figure 34.2):
+    - Radial null lines make angles of 45° with the vertical axis.
+    - Nonradial null lines make angles of less than 45°.
+
+
+SCHWARZSCHILD SPACETIME IN y, ~, e, ep COORDINATES
+
+Section: Schwarzschild Spacetime in y, ~, e, ep Coordinates
+
+(a) Derive equations (34.3c, d) from (34.3a, b) and the Kruskal-Szekeres equations 
+
+(b) Using equations (34.3), justify the precise form of the coordinates
+
+
+Examples: REISSNER-NORDSTRÖM SPACETIME
+
+Section: Reissner-Nordström Spacetime
+(a) Show that a coordinate system exists where the Reissner-Nordström geometry (for 0 < |Q| < M) has the form:
+    ds² = F²(–dy² + d~²) + r²(de² + sin²e dep²),
+    with r = r(y, ~).
+
