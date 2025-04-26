@@ -1,14 +1,13 @@
 # Vehicle Systems Design
 
  **Project Overview**  
-This project explores advanced vehicle systems using:
+Advanced vehicle systems using:
 
-- **General Relativity Metrics** (Kruskal-Szekeres, Reissner-Nordström, Schwarzschild)
+- **General Relativity Metrics** 
 - **Application Acceleration** with Vitis Unified Software Platform (UG1393)
 - **Thermal Protection Materials** inspired by NASA's Parker Solar Probe
 
 🚀 **Applications and Inspirations**  
-- In-cabin IVI/DI/ADAS convergence systems
 - Solar radiation protection for embedded electronics
 - Solar-powered vehicle architecture (Solar Team Eindhoven Lightyear 0)
 
@@ -23,7 +22,6 @@ This project explores advanced vehicle systems using:
 - Electromagnetic suspension and gravitational field control concepts  
 
 ---
-## Project Structure
 
 - `/docs`: Technical references and whitepapers
 - `/hardware`: Prototype designs and layouts
