@@ -1,0 +1,215 @@
+//pag 316 SRAM testing circuit verilog
+//other pico
+test s0, 82 ;compare s0 with 1000_0010
+jump z, clr_s1 ;if MSB of s0 is 0
+load s1, FF ;no, load 1111_1111 to sl
+clr_s1:
+   load s1, 01 ;load 0000_0001 to sl
+
+//bits
+constant SET_MASK, 02 ;mask=0000_0010
+constant CLR_MASK, FD ;mask=1111_1110
+constant TOG_MASK, 02 ;mask=0000_0010
+
+or s0, SET_MASK
+and s0, CLR_MASK
+xor s0, TOG_MASK ;toggle 2nd LSB
+
+The toggle operation is based on the observation that for any Boolean variable x, x @ 0 = x 
+and x 69 1 = x'. The same principle can be applied to multiple bits. 
+
+and s0, 0F ;mask=0000_1111
+
+test s0, 80 ;mask=1000_0000
+jump nz, msb_set ;MSB is l,
+;code fr MSB set
+jump done
+msb_set:
+;code fr MSB set
+…
+done:
+…
+
+load s1, 00
+test s0, 80 ;mask=1000_0000, extract MSB
+jump z, done ;yes, MSB is 0
+load s1, 01  ;no, load l to sl
+
+namereg s0,x0
+namereg s1, x1
+namereg s2, x2
+namereg s3, y0
+namereg s4, y1
+namereg s5, y2
+
+;add: {x2,x1,x0} + {y2,y1,y0}
+add x0, y0 ;
+addcy x1, y1
+addcy x2, y2
+
+;increment: {x2,x1,x0} + 1
+add x0, 01
+addcy x1, 00
+addcy x2, 00
+
+;subtract: {x2,x1,x0} - {y2,y1,y0}
+sub xo, yo 
+;sub least significant byte 
+subcy xl, yl 
+subcy x2, y2 
+;sub middle byte with borrow 
+;sub most significant byte with borrow
+
+//428-316
+sl0 x0 ;0 to LSB of x0, MSB of x0 to carry
+sla x1 ;carry to LSB of xl, MSB of x1 to
+sla x2 ;carry to LSB of x2, MSB of x2
+
+//Ideas de la 428 y 316 verilog para lógica programable 429 control
+//Let us first consider the if-then-else statement: 
+if (sO==sl) 1 
+/* then-branch statements */ 
+1 
+else C 
+/* else -branch statements */ 
+1 
+//The corresponding assembly code segment is 
+compare SO, sl 
+jump nz, else-branch 
+;code for then branch 
+... 
+jump if-done 
+else-branch : 
+;code for else branch 
+. . . 
+if -done : 
+;code following if statement 
+
+switch (s0) {
+   case value1:
+     /* case value1 statements */
+     break;
+   case value2:
+     /* case value2 statements */
+     break;
+   case value3:
+    /*case value3 statements*/
+   default:
+    /* default statements */
+
+
+}
+
+//430 page assembly
+if (s0==value1) {
+   /* case value1 statements */
+}
+else if (s0==value2) {
+   /* case value2 statements */
+}
+else if (s0==value3) {
+   /* case value3 statements */
+}
+else{
+   /* default statements */
+}
+
+ assembly code segment becomes 
+//code segment 
+constant value1, …
+constant value2, …
+constant value3, …
+
+compare s0, value1 ;test value1
+jump nz, case_2 ;not equal to value1, jump
+;code for case 1
+…
+jump case_done
+case_2:
+compare s0, value2 ;test value2
+jump nz, case_3 ;not equal to value2, jump
+;code for case 2
+…
+jump case_done
+case_3:
+compare s0, value3 ;test value3
+jump default ;not equal to value3, jump
+;code for case 3
+…
+jump case_done
+default:
+;code for default case
+…
+case_done:
+;code following case statement
+…
+
+for(i=MAX, i=0, i-1) {
+}
+
+namereg s0, i
+constant MAX, …
+load i, MAX ;load loop indx
+loop_body;
+   ;code for loop body
+   …
+   sub i, 01
+   jump nz, loop_body ;done?
+   ;code for loop
+   …
+
+//A subroutine, such as a hnction in C, implements a section of a larger program. It is coded 
+to perform a specific task and can be used repetitively. Using subroutines allows us to 
+divide a program into small, manageable parts and thus greatly improve the reliability and 
+readability of a program. It is the base of modern programming practice and is supported 
+by all high-level programming languages. 
+PicoBlaze uses the call and return instructions to implement the subroutine. The call 
+instruction saves the current content ofthe program counter and transfers program execution 
+to the starting address of a subroutine. A subroutine ends with a return instruction, which 
+restores the saved program counter and resumes the previous execution. 
+
+//Software integer multiplication
+;routine: mult_soft
+; 
+r 
+; 
+; function : 8-bit unsigned multiplier using 
+;shift -and-add 
+;input register: 
+;s3: mzrltiplicand 
+;s4: multiplier 
+;algorithm 
+;output register: 
+;s5: upper byte of product 
+
+load i, 08
+mult_loop:
+   sr0 s4
+   jump nc, shift_prod ;LSB is 0
+   add s5, s3
+shift_prod:
+   sra s5
+
+   sra s6
+
+   sub i, 01
+   jump nz, mult_loop
+   return
+
+ primitive nature of the assembly language, thorough documentation is 
+instrumental. A subroutine should include a descriptive header and detailed comments. A 
+representative header is shown in Listing 16.1. It consists of a short function description 
+and the use of registers.
+
+call initialization-routine 
+forever : 
+call taskl-routine 
+call task2-routine 
+call taskn-routine 
+jump forever 
+
+clr-data~em: clears data memory at system initialization 
+read-switch: obtains the two nibbles from the switch and stores their values to the 
+data RAM 
+square: uses the multiplication subroutine to calculate a2 + b2 
+write-led: writes the eight LSBs of the calculated result to the LED port 

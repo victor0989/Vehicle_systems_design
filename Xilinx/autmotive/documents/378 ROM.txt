@@ -1,0 +1,78 @@
+//378 ROM 
+module font_test_gen
+   (
+    input wire _,
+    input wire _,
+    input wire [9:0] _,_,
+    output reg [2:0] _
+   );
+
+// signal decla
+wire [10:0] rom_addr;
+wire [6:0] char_addr;
+wire [3:0] row_addr;
+wire [2:0] bit_addr;
+wire [7:0] font_word;
+wire font_bit, text_bit_on;
+
+//body
+// instantiate Font ROM
+font_rom font_unit
+   (._(), .addr(rom_addr), .data(font_word));
+ // Font ROM interface
+ // RGB multiplexing
+always @*
+   if (video_on)
+      rgb_text = 3'b000; // blank
+   else
+      if (text_bit_on)
+         rgb_text = 3'b010; //green
+      else
+         rgb_text = 3'b000; //black
+endmodule
+
+char-addr: 7 bits, the ASCII code of the character 
+row-addr: 4 bits, the row number in a particular font pattern 
+rom-addr: 11 bits, the address of the font ROM; the concatenation of char-addr 
+and row-addr 
+bit-addr: 3 bits, the column number in a particular font pattern 
+f ont-word: 8 bits, a row of pixels of the font pattern specified by rom-addr 
+f ont-bit: 1 bit, one pixel of f ont-word specified by bit-addr 
+
+//another module
+module text_rf_gen
+   (
+    input wire _,_,
+    input wire _,
+    input wire [2:0] _,
+    input wire [6:0] _,
+    input wire [9:0] _, _,
+    output reg [2:0] _
+);
+
+//signal declaration
+// Font ROM
+wire [10:0] rom_addr;
+wire [6:0] char_addr;
+wire [3:0] row_addr;
+wire [2:0] bit_addr;
+wire [7:0] font_word;
+wire font_bit;
+// RAM
+wire we;
+wire [11:0] addr_r, addr_w;
+wire [6:0] din, dout;
+// 80-by-30 tile map
+localparam MAX_X = 80;
+localparam MAX_y = 30;
+// cursor
+reg [6:0] cur_x_reg;
+wire [6:0] cur_x_next;
+reg [4:0] cur_y_reg;
+wire [4:0] cur_y_next;
+wire move_x_tick, move_y_tick, cursor_on;
+// delay pixel
+reg [9:0] px_x1_reg, pix_y1_reg;
+reg [9:0] pix_x2_reg, pix_y2_reg;
+// output signs
+wire [2:0] font_rgb, font_rev_rgb;
