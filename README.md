@@ -30,6 +30,7 @@ Advanced vehicle systems using:
 - https://surpass.jhu.edu/news/wse-and-apl-collaborate-to-touch-the-sun-with-parker-solar-probe/?utm_source=chatgpt.com
 - Developers: https://www.xilinx.com/video/soc/automotive-zynq-7000.html
 - Militar-vehicles-solar-parker: https://ultramet.com/parker-solar-probe-heat-shield/
+- Video: https://www.youtube.com/watch?v=pOZhPz92Dic
 
 ---
 
