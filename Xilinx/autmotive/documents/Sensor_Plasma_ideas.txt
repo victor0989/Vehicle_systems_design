@@ -1,0 +1,35 @@
+Sensor Fusion System Integration Plan
+------------------------------------
+- **Sensors:** 8 exterior cameras (surround-view) + 1 forward radar + 12 ultrasonic sensors&#8203;:contentReference[oaicite:0]{index=0}, covering 360° around the vehicle. Multiple FLIR Lepton thermal cameras are mounted at key points (front corners, rear, sides) for infrared imaging.
+- **Fusion Module:** Central AMD/Xilinx Zynq UltraScale+ **ZCU106** board inside the car aggregates all sensor data.
+- **Data Bus:** Each sensor’s data (video streams, radar return signals, ultrasonic ranges, thermal images) is sent to the ZCU106 over high-speed interfaces (e.g. MIPI CSI for cameras, CAN or Ethernet for radar, SPI/CAN for thermal).
+- **Processing:** The ZCU106’s SoC includes a quad-core ARM CPU cluster and FPGA fabric&#8203;:contentReference[oaicite:1]{index=1}. The FPGA fabric handles real-time signal pre-processing (image rectification, radar pulse processing, etc.), while the ARM CPU cores run the higher-level fusion algorithms and driving logic.
+- **Output:** The fusion unit produces a combined environmental model (object positions, velocities, and thermal signatures) used by the Autopilot controller for navigation and safety.
+
+Plasma Hybrid System Design
+---------------------------
+- **Tokamak Reactor:** A mini toroidal fusion chamber sits behind the rear axle. It includes a vacuum vessel containing a high-temperature deuterium-tritium plasma core, with superconducting magnetic field coils wrapped around it.
+- **Insulation & Shielding:** The inner wall of the tokamak is lined with carbon-carbon composite foam to provide thermal insulation. The outer shell of the reactor is surrounded by boron-carbide (B₄C) blocks, serving as a neutron and gamma shield&#8203;:contentReference[oaicite:2]{index=2}.
+- **Energy Transfer:** Insulated pipes carry the reactor’s plasma or high-temperature coolant to an onboard heat-exchange turbine system. (In the diagram, show fluid/plasma flow lines from the tokamak to the turbine.)
+- **Drivetrain:** The turbine/generator converts fusion energy into electricity that powers the vehicle’s electric motors (e.g. dual motors, one per axle). Show arrows indicating power flow from the reactor/turbine to the motors.
+- **Labels:** Mark all key components on the blueprint: *Magnetic Coils*, *Plasma Core*, *Vacuum Vessel*, *Insulation*, *B₄C Shield*, *Pipes/Conduits*, *Heat Exchanger/Turbine*, *Electric Motors*.
+
+Materials and Thermal Protection Choices
+----------------------------------------
+- **Carbon-Carbon Foam:** Used as high-temperature thermal insulation on the reactor’s inner wall (it has a very high melting point and is low-weight).
+- **Boron Carbide (B₄C):** Selected for the outer radiation shield due to its hardness and excellent neutron-absorption properties&#8203;:contentReference[oaicite:3]{index=3}.
+- **Refractory Alloys/Ceramics:** The tokamak vessel and piping employ tungsten alloys or ceramic composites to withstand plasma-level heat loads (~10⁸–10⁹ K). These materials maintain strength and integrity under neutron bombardment.
+- **Active Cooling:** Coolant loops (water or liquid metal channels) circulate around the reactor blanket to carry away residual heat. High-efficiency heat-exchanger radiators are implied to dump waste heat.
+- **Safety:** Multi-layer insulation and reflective coatings on surrounding vehicle structure minimize heat leakage. All materials are chosen to minimize activation (long-lived radioactivity) and protect occupants from radiation.
+
+Basic Connection Diagram
+------------------------
+Sensors -> ZCU106 (Fusion Processor) -> Tokamak Reactor -> Electric Motors
+
+Future Viability Discussion
+---------------------------
+- **Current Status:** Fusion power today is achieved only in massive experimental devices (e.g. ITER, hundreds of meters in size). No compact tokamak exists anywhere near car-scale.  
+- **Past Efforts:** For example, Lockheed Martin’s “Compact Fusion Reactor” project aimed for a small prototype (announced 2014), but it was abandoned by 2021&#8203;:contentReference[oaicite:4]{index=4}. This underscores the difficulty of building a compact fusion engine.  
+- **Technical Challenges:** Major hurdles include attaining *net-positive* fusion energy, controlling a stable plasma, managing extreme thermal loads (millions of °C), and providing extremely heavy radiation shielding in a small space.  
+- **Conclusion:** A fusion-powered Tesla remains a theoretical concept. Making it real would require breakthroughs in fusion physics, advanced materials, and safety engineering far beyond current capabilities.
+
