@@ -1,0 +1,17 @@
+3. Key Interchange Questions
+Membrane Porosity vs. Confinement
+
+a) What Debye-length–scaled pore sizes (~10⁻⁵ m) maximize ion–neutral collisions without leaking too much plasma? (Chen §4.3)
+
+b) Sheath Potential Management
+
+c) How to bias the graphene catalyst surface to control sheath thickness (~a few mm) and avoid sputtering? (Chen §5.2)
+
+d) Heat Flux Limits
+
+e) Can the tungsten–carbon foam assembly handle >10 MW/m² without melting? Use radiative and conductive heat transfer models (Chen §3.9).
+
+f) Regeneration Cycle
+
+g) What cycle time (seconds to minutes) is needed to flush and recycle the ionic liquid separators without halting reactor output? Balance with fluid transport equations (Chen §3.5).
+
