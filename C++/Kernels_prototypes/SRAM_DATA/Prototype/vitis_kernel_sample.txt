@@ -1,0 +1,286 @@
+//Vitis-kernel objects, kernel 
+g++ -g -std=c++17 -I$XILINX_XRT/include -L$XILINX_XRT/lib -lxrt_coreutil -pthread
+
+#include <xrt/xrt_device.h>
+#include <experimental/xrt_xclbin.h>
+
+//env
+unsigned int device_index = 0;
+std::string binaryFile = parser.value("kernel.xclbin");
+std::cout <<"Open the device" << device_index << std::endl;
+auto device = xrt::device(device_index);
+std::cout << "Load the xclbin " << binaryFile << std::endl;
+auto uuid = device.load_xclbin(binaryFile);
+
+#include <xrt/xrt_kernel.h>
+#include <xrt/xrt_bo.h>
+
+auto krnl = xrt::kernel(device, uuid, "vadd");
+
+std::cout <<"Allocate Buffer in Global Memory";
+
+auto bo0 = xrt::bo(device, vector_size_bytes, krnl.group_id(0));
+auto bo1 = xrt::bo(device, vector_size_bytes, krnl.group_id(1));
+auto bo_out = xrt::bo(device, vector_size_bytes, krnl.group_id(2));
+
+The kernel object (xrt::kernel) includes a method to return the memory associated with each kernel argument, kernel.group_id().
+krnl1 = xrt::kernel(device, xclbin_uuid, "vadd:{vadd_1,vadd_2}");
+krnl2 = xrt::kernel(device, xclbin_uuid, "vadd:{vadd_3}");
+
+std::cout << "Allocate Buffer in Global Memory" 
+
+auto bo0 = xrt::bo(device, vector_size_bytes, krnl.group_id(0));
+auto bo1 = xrt::bo(device, vector_size_bytes, krnl.group_id(1));
+auto bo_out = xrt::bo(device, vector_size_bytes, krnl.group_id(2));
+
+bo0.write(buff_data);
+bo0.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+bo1.write(buff_data);
+bo1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+…
+bo_out.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
+bo_out.read(buff_data);
+
+Note: If the buffer is created using a user-pointer as described in Creating Buffers from User Pointers, the xrt::bo::sync call is sufficient, and the xrt::bo::write or xrt::bo::read commands are not required.
+
+// Map the contt of the buffer into host memory
+auto bo0_map = bo0.map<int*>();
+auto bo1_map = bo1.map<int*>();
+auto bo_out_map = bo_out.map<int*>();
+
+for (int i = 0; i < DATA_SIZE; ++i) {
+   bo0_map[i] = i;
+   bo1_map[i] = i;
+}
+
+// Synchronize buffer content with device
+bo0.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+bo1.sync(XCL_BO_SYNC_BO_TO_DEVICE);
+
+std::cout << "Execution of the kernel";
+auto run = krnl(bo0, bo1, bo_out, DATA_SIZE);
+run.wait();
+
+auto run = xrt::run(krnl);
+run.set_arg(0,bo0);
+run.set_arg(0,bo1);
+run.set_arg(0,bo_out);
+run.start();
+run.wait();
+
+//get output
+bo_out.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
+
+// Validate
+if (std::memcmp(bo_out_map, bufReference, DATA_SIZE))
+   throw std::runtime_error();
+
+//IP, AXI_IP , xrt_ip.h library kernel
+#include "experimental/xrt_ip.h"
+#include "xrt/xrt_bo.h"
+
+experimental/xrt_ip.h: Defines the IP as an object of xrt::ip.
+xrt/xrt_bo.h: Lets you create buffer objects in the XRT native API.
+
+//User kernel = IP
+auto ip = xrt::ip(device,uuid,"Vadd_A_B");
+
+#include <experimental/xrt_aie.h>
+
+auto my_graph  = xrt::graph(device, uuid, "mygraph_top");
+
+my_graph.reset();
+std::cout << STR_PASSED << "my_graph.reset()" << std::endl;
+std::cout << STR_PASSED << "my_graph.run" << std::endl;
+
+auto <buf_name> = xrt::bo(<device>,<DATA_SIZE><flag>,<bank_id>);
+
+//<device>: xrt::device object of the accelerator card.
+<DATA_SIZE>: Size of the buffer as defined by the width and quantity of data.
+<flag>: Flag for creating the buffer objects.
+<bank_id>: Defines the memory bank on the device where the buffer should be allocated for IP access. The memory bank specified must match with the corresponding IP port's connection inside the .xclbin file. Otherwise you will get bad_alloc when running the application. You can specify the assignment of the kernel argument using the --connectivity.sp command:
+
+//sample
+Instance:        Vadd_A_B_1
+   Base Address: 0x1c00000
+
+   Argument:          scalar00
+   Register Offset:   0x10
+   Port:              s_axi_control
+   Memory:            <not applicable>
+
+   Argument:          A
+   Register Offset:   0x18
+   Port:              m00_axi
+   Memory:            bank0 (MEM_DDR4)
+
+   Argument:          B
+   Register Offset:   0x24
+   Port:              m01_axi
+   Memory:            bank0 (MEM_DDR4)
+
+auto a_data = buf_in_a.map<int*>();
+auto b_data = buf_in_b.map<int*>();
+
+// get physical address buffr
+long long a_addr=buf_in_a.address();
+long long b_addr=buf_in_b.address();
+
+//Sync
+buf_in_a.sync(XCL_BO_SYNC_TO_DEVICE);
+buf_in_b.sync(XCL_BO_SYNC_TO_DEVICE);
+
+xrt::bo::map() allows mapping the host-side buffer backing pointer to a user pointer. However, before reading from the mapped pointer or after writing to the mapped pointer, you should use xrt::bo::sync() with direction flag for the DMA operation.
+
+DMA video or signal processing system
+ILA
+
+//como se lee la memoria, el buffer y addrs
+//IP integrator, PIN/PORT REGISTER_OFFSET 32 byte
+    ip.write_register(REG_OFFSET_A,a_addr);
+    ip.write_register(REG_OFFSET_A+4,a_addr>>32);
+
+    ip.write_register(REG_OFFSET_B,b_addr);
+    ip.write_register(REG_OFFSET_B+4,b_addr>>32);
+
+//AXI FIFO,STREAM
+unit32_t axi_ctrl = 0;
+std::cout << "INFO:IP Start" << std_endl;
+axi_ctrl = IP_START;
+ip.write_register(CSR_OFFSET, axi_ctrl);
+
+//wait until IP DONE
+axi_ctrl =0;
+while((axi_ctrl & IP_IDLE) != IP_IDLE) {
+    axi_ctrl = ip.read_register(CSR_OFFSET);
+}
+
+//After IP execution is finished, you can transfer the data back to host by the xrt::bo::sync command with the appropriate flag to dictate the buffer transfer direction.
+
+    buf_in_b.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
+
+// Write Registers
+range.start("", "");
+ip.write_register(REG_OFFSET_A,a_addr);
+ip.write_register(REG_OFFSET_A+4,a_addr>>32);
+range.end();
+range.start("Phase 4b", "Write B Register");
+ip.write_register(REG_OFFSET_B,b_addr);
+ip.write_register(REG_OFFSET_B+4,b_addr>>32);
+range.end()
+
+#include <experimental/xrt_aie.h>
+
+auto my_graph = xrt::graph(device, uuid, "mygraph_top");
+
+my_graph.reset();
+std::cout << STR_PASSED << "my_graph.reset" << std::endl;
+my_graph.run(0);
+std::cout << STR_PASSED << "my_graph.run" << std::endl;
+
+one or more kernels are separately compiled/linked to build the .xclbin file. The device.load_xclbin(binaryFile) command is used to load the kernel binary.
+Create xrt::kernel objects from the loaded device binary, and associate buffer objects (xrt::bo) with the memory banks assigned to kernel arguments.
+Transfer data back and forth from the host application to the kernel using xrt::bo::sync commands and buffer reads and write commands.
+Execute the kernel using an xrt::run object to start the kernel
+
+extern "C" {
+           void kernel_function(int *in, int *out, int size);
+}
+
+Below is the host code example using _fp16 (floating point 16) data types which is only supported in the ARM-GCC based compiler. The x86 compiler issues error while compiling the same host code. In such situation, AMD recommends using the QEMU model of the PS and compiling the PS application with ARM-GCC based compiler.
+
+#define LENGTH (1024)
+#define HALF __fp16
+int main(int argc, char* argv[])
+{
+unsigned fileBufSize;
+std::string binaryFile = argv[1];
+size_t vector_size_bytes = sizeof(HALF) * LENGTH;
+//Source memories
+std::vector<HALF> source_a(LENGTH);
+std::vector<HALF> source_b(LENGTH);
+std::vector<HALF> result_sim (LENGTH);
+std::vector<HALF> result_krnl(LENGTH);
+/* create the test data and Golden data locally */
+for(int i=0; i < LENGTH; i++){
+source_a[i] = i;
+source_b[i] = i*2;
+result_sim[i] = source_a[i] + source_b[i];
+
+}
+
+AI engine
+$CXX -std=c++17 -O0 -g -Wall -c \
+-I./src -I${XILINX_VITIS}/aietools/include -o sw/host.o sw/host.cpp
+
+$CXX -std=c++17 -O0 -g -Wall -c \
+-I./src -I${XILINX_VITIS}/aietools/include -o
+
+-std=c++17
+-I./src
+-I${XILINX_VITIS}/aietools/include
+-o sw/host.o sw/host.cpp
+
+Compiling PL Kernels for Software Emulation
+
+Compiling a PL kernel for use in the software emulation flow requires the v++ -c -k form of the command. Use the following command line as an example to build the software emulation target:
+
+v++ -t sw_emu --platform xilinx_u200_gen3x16_xdma_2_202110_1 -c -k vadd \
+-I'./src' -o'vadd.sw_emu.xo' ./src/vadd.cpp
+
+-t <arg>: Specifies the build target as software emulation (sw_emu)
+-c: Compile the kernel. Required. The kernel must be compiled (-c) and linked (-l) in two separate steps
+--platform <arg>: Specifies the target platform to compile the PL kernel for. The platform must match the platform specified n the v++ --link command
+-k <arg>: Name of the PL kernel associated with the source files
+-o <arg>: Specify the output file .xo for the compiler
+<input_file>: Can be specified as a positional argument on the command line, or using the --input option
+
+Desarrollo de C++ compilación de kernel
+en Vitis IDE o microcontrolador genérico
+
+void cnn(int *pixel, // Input pixel
+  int *weights, // Input Weight matrix
+  int *out, // output pixel
+  … // Other input
+
+#pragma HLS INTERFACE m_axi port=pixel offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=weights offset=slave bundle=gmem1
+#pragma HLS INTERFACE m_axi port=out offset=slave bundle=gmem
+
+}
+
+Use the --connectivity.sp option, or include it in a config file, as described in --connectivity Options.
+For example, for the cnn kernel shown above, the connectivity.sp option in the config file would be as follows:
+
+[connectivity]
+#sp=<compute_unit_name>.<argument>:<bank name> 
+sp=cnn_1.pixel:DDR[0]          
+sp=cnn_1.weights:DDR[1]
+sp=cnn_1.out:DDR[0]
+
+
+<compute_unit_name> is an instance name of the CU as determined by the connectivity.nk option, described in Creating Multiple Instances of a Kernel, or is simply <kernel_name>_1 if multiple CUs are not specified.
+<argument> is the name of the kernel argument. Alternatively, you can specify the name of the kernel interface as defined by the HLS INTERFACE pragma for C/C++ kernels, including m_axi_ and the bundle name. In the cnn kernel above, the ports would be m_axi_gmem and m_axi_gmem1.
+
+Example PLRAM:
+
+  Bus SP Tag: PLRAM
+    Segment Index: 0
+      Consumption: explicit
+      SLR:         SLR0
+      Max Masters: 60
+    Segment Index: 1
+      Consumption: explicit
+      SLR:         SLR1
+      Max Masters: 60
+    Segment Index: 2
+      Consumption: explicit
+      SLR:         SLR2
+      Max Masters: 60
+    Segment Index: 3
+      Consumption: explicit
+      SLR:         SLR3
+      Max Masters: 60
+
+command: --connectivity.sp cnn_1.weights:PLRAM3
+
