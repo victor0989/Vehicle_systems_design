@@ -1,0 +1,8 @@
+Component | Function | Material & Why It Works
+Magnetic Cusp Injectors | Funnel warm H–D plasma into the exchange chamber | Nb–Ti superconducting coils: high field at compact size (Chen §2.3)
+Porous Graphene-Oxide Catalyst | Catalyze ion–neutral recombination, seed charge exchange | Graphene-oxide: tunable pore size, extreme thermal tolerance (§4.2)
+Boron Nitride Nanotube Mesh | Structural support & secondary filtration of macroscopic debris | h-BN nanotubes: wide bandgap, high thermal conductivity, radiation hard (§5.4)
+Ionic Liquid Separator | Capture residual neutral atoms, prevent backflow | Ionic liquids (e.g., EMI-BF₄): stable up to 1000 K, chemically inert
+Magnetized Heat Exchanger | Remove waste heat via MHD drag, feed to liquid-metal loop | Tungsten mesh with carbon foam backing (Parker-like TPS): reflects radiative heat, spreads conduction (§3.6)
+MHD Electrodes | Direct conversion of plasma flow into electricity | Graphite-tungsten composite: low sputter, high melting point
+Superconducting Magnetic Pumps | Circulate liquid metal coolant around reactor & filters | YBCO tapes: operate at 77 K (liquid nitrogen) for compact cryo‐systems (§2.7)
