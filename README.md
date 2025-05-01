@@ -1,4 +1,4 @@
-# Vehicle Systems Design
+# Concept: Vehicle Systems Design & C++ examples to developt AI systems/kernels & Hardware components with Verilog prototyping and VHDL across the IP block integration process
 
  **Project Overview**  
 Advanced vehicle systems using:
