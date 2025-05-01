@@ -1,0 +1,49 @@
+//Compiling an Embedded Application for PS on x86
+
+//In order to compile an embedded application to run on an x86 //processor, as described in Embedded Processor Emulation Using //PS on x86 you must use the x86 version of gcc or g++ compiler //version 8.3 or later.
+**************************************************************************
+g++ -Wall -c -std=c++17 -Wno-int-to-pointer-cast -I${XILINX_XRT}/include \
+-I./src/aie -I./ -I${XILINX_VITIS}/aietools/include \
+-o aie_control_xrt.o ./Work/ps/c_rts/aie_control_xrt.cpp $(HOST_SRCS) -o main.o
+
+g++ *.o -lxrt_coreutil -ladf_api_xrt -L${XILINX_VITIS}/aietools/lib/lnx64.o \
+-L${XILINX_XRT}/lib -o $(EXECUTABLE)
+
+setenv PATH $XILINX_VITIS/aietools/tps/lnx64/gcc/bin:$PATH
+**************************************************************************
+
+#define LENGTH (1024)
+#define HALF __fp16
+int main(int argc, char* argv[])
+{
+unsigned fileBufSize;
+std::string binaryFile = argv[1];
+size_t vector_size_bytes = sizeof(HALF) * LENGTH;
+//Source memories
+std::vector<HALF> source_a(LENGTH);
+std::vector<HALF> source_b(LENGTH);
+std::vector<HALF> result_sim(LENGTH);
+std::vector<HALF> result_krnl(LENGTH);
+/* Create the test data and golden data locally */
+for(int i=0; i < LENGTH; i++){
+source_a[i] = i;
+source_b[i] = i*2;
+result_sim[i] = source_a[i] + source_b[i];
+ }
+****************************************************
+$CXX -std=c++17 -O0 -g -Wall -c \
+-I./src -I${XILINX_VITIS}/aietools/include -o sw/host.o sw/host.cpp
+
+$CXX -std=c++17 -O0 -g -Wall -c \
+-I./src -I${XILINX_VITIS}/aietools/include -o
+
+-std=c++17
+-I./src
+-I${XILINX_VITIS}/aietools/include
+-o sw/host.o sw/host.cpp
+
+$CXX -lgcc -lc -lpthread -lrt -ldl \
+-lcrypt -lstdc++ -lxrt_coreutil \
+-L<platform_path>/sysroots/aarch64-xilinx-linux/usr/lib \
+-o sw/host.exe sw/host.o sw/aie_control_xrt.o
+****************************************************

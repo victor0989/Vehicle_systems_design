@@ -1,0 +1,37 @@
+CORE_RESET	<col, row>	Core <col, row> is out of reset and starts executing code from PC0.
+CORE_WAIT	<col, row>	Core <col, row> is waiting for lock, stream input, or memory response.
+CORE_READY	<col, row>	Core <col, row> is ready after a stall is serviced.
+ACQ_READ_LOCK_REQ
+
+ACQ_WRITE_LOCK_REQ
+
+<col, row, lockid, dir, pc, info>	Core <col, row> requests for a lock to one of its neighboring memory blocks. The <pc> is the current program counter. The <info> is the symbolic information.
+REL_LOCK_REQ	<col, row, lockid, dir>	Core <col, row> releases a lock in a neighboring lock module.
+CORE_READ_REQ	<col, row, address, dir, port, bank, data, pcinfo, addrinfo>	Core <col, row> requests a read at a memory address. The address is a 15-bit address local to the memory. Together, the <dir, address> forms a 17-bit address. The <dir> field specifies [E, W, N, S] direction. The <port> specifies the load port (A,B), and <bank> specifies access to an odd or even bank. Symbolic information about program variables and the <pc> value is available in the event.
+CORE_WRITE_REQ	<col, row, address, dir, bank, data, size.pcinfo, addrinfo>	Core <col, row> writes data at a particular 15-bit address. The <dir> specifies the direction of the memory being accessed. Symbolic information about the <pc> value and data symbol are available in the event.
+PC_CHANGE	<col, row, pc, info>	Core <col, row> shows the change in the <pc> value. It is useful for identifying loops.
+DMA_S2MM_ACQ_LOCK	<col, row, ch>	DMA requests a lock. The <ch> field represents the DMA channel number. The supported channels are 0 and 1.
+DMA_S2MM_IDLE	<col, row, bd, ch>	DMA in an idle state. <bd> is the buffer descriptor.
+DMA_S2MM_START	<col, row, bd, ch, start>	Start DMA transfer at the start address
+DMA_S2MM_DONE	<col, row, bd, ch>	End DMA transfer at the end address
+DMA_S2MM_LOCKSTALL	<col, row, bd, ch>	DMA is stalled to get a lock
+DMA_S2MM_LOCKSTALL_RELEASE	<col, row, bd, ch>	DMA gets a lock and stall is released
+DMA_MM2S_ACQ_LOCK	<col, row, ch>	DMA <col, row> requests a lock
+DMA_MM2S_IDLE	<col, row, ch>	DMA <col, row> in an idle state
+DMA_MM2S_START	<col, row, bd, ch, start>	Start DMA transfer at <col, row> at the start address, the <bd> is the buffer descriptor.
+DMA_MM2S_DONE	<col, row, bd, ch>	End DMA transfer at <col, row> at the end address, the <bd> is the buffer descriptor.
+DMA_MM2S_LOCKSTALL	<col, row, bd, ch>	DMA is stalled to get a lock
+DMA_MM2S_LOCKSTALL_RELEASE	<col, row, bd, ch>	DMA gets a lock and stall is released
+IO	<dir, id, data >	An I/O event represents new data on an input stream. The <dir> [E, W, N, S] and <id> [0–15] together represent a physical stream, the data field represents 32-bit data appearing on the stream.
+DATA_HEAD	<col, row, name, netid, pktid, idx>	Core <col, row> transfers packet switched data header with routing <name>, on net<netid>. This packet has packet ID <pktid>. <idx> is reserved.
+DATA_START	<col, row, name,netid, pktid, idx>	Data payload (either packet switched or circuit switched) start. All fields follow the meaning of DATA_HEAD fields.
+DATA_RESUME	<col, row, name,netid, pktid, idx>	Data payload resumed after being stalled. All fields follow the meaning of DATA_HEAD fields.
+DATA_STALL	<col, row, name, netid, idx>	Data payload stalled within packet payload. All fields follow the meaning of DATA_HEAD fields.
+DATA_END	<col, row, name, netid, idx>	Data payload end (either packet switched or circuit switched). All fields follow the meaning of DATA_HEAD fields.
+PL_TO_SHIM, SHIM_TO_PL
+
+<name, col, channelId, data0, data1, tlast>	Data movement between the PL and AI Engine array interface (SHIM). Name shows the PL block name.
+PL2PL, PL2PL_E	<name, port, data0, data1, tlast, tkeep>	PL port activity start and end. Name and port show PL block name/port.
+DM_READ_REQ	<col, row, portname>	A read request event on a port of a memory module. A read port can be a core, DMA, or memory-mapped AXI4 interface read request port.
+DM_WRITE_REQ	<col, row, portname>	A write request event on a port of a memory module. A write port can be a core, DMA, or memory-mapped AXI4 interface write request port.
+DM_BANK_CONFLICT	<col, row, bankid, bank>	A bank conflict event shows a bank conflict because multiple requests are sent to the same bank of a memory module.

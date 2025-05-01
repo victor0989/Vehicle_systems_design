@@ -1,0 +1,280 @@
+//Host Programming for Bare-Metal,https://docs.amd.com/r/en-US/ug1076-ai-engine-environment/Host-Programming-for-Bare-Metal
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <unistd.h>
+#include "platform.h"
+#include "xparameters.h"
+#include "xil_io.h"
+#include "xil_cache.h"
+#include "graph.cpp"
+......
+#define MM2S_BASE XPAR_MM2S_S_AXI_CONTROL_BASEADDR
+#define S2MM_BASE XPAR_S2MM_S_AXI_CONTROL_BASEADDR
+#define MEM_OFFSET 0x10
+#define SIZE_OFFSET 0x1C
+#define CTRL_OFFSET 0x0
+//#define INPUT_SIZE 
+
+int RunTest(uint64_t mm2s_base, uint64_t s2mm_base, int32_t* in, int32_t* golden, 
+    int32_t* out, int input_size, int output_size)
+{
+    int i;
+    int errCount = 0;
+    uint64_t memAddr = (uint64_t)in;
+    uint64_t mem_outAddr = (uint64_t)out;
+
+    printf("Starting test w/ cu\n");
+    printf("Starting mm2s & s2mm\n");
+    Xil_Out32(mm2s_base + MEM_OFFSET, (uint32_t) memAddr);
+    Xil_Out32(mm2s_base + MEM_OFFSET + 4, 0);
+    Xil_Out32(s2mm_base + MEM_OFFSET, (uint32_t) mem_outAddr);
+    Xil_Out32(s2mm_base + MEM_OFFSET + 4, 0);
+    Xil_Out32(mm2s_base + SIZE_OFFSET, input_size);
+    Xil_Out32(s2mm_base + SIZE_OFFSET, output_size);
+    Xil_Out32(mm2s_base + CTRL_OFFSET, 1);
+    Xil_Out32(s2mm_base + CTRL_OFFSET, 1);
+
+    printf("GRAPH INIT\n");
+    clipgraph.init();
+
+    printf("GRAPH RUN\n");
+    clipgraph.run();
+
+    //Wait for s2mm to be done  
+    while(1) {
+        uint32_t v = Xil_In32(s2mm_base + CTRL_OFFSET);
+        if(v & 6) {
+            break;
+        }
+    }
+
+    printf("PLIO IP DONE!\n");
+
+    for(i = 0; i < output_size; i++) {
+        if((((int32_t*)out)[i] != ((int32_t*)golden)[i]) ) {
+            printf("Error found in sample %d != to the golden %d\n", i+1, ((int32_t*)out)[i], ((int32_t*)golden)[i]);
+            errCount++;
+        }
+        else
+            printf("%d\n ",((int32_t*)out)[i]);
+    }
+
+    printf("Ending test w/ cu\n");
+    return errCount;
+}
+
+int main()
+{
+    int i;
+    int32_t* out;
+    int errCount;
+
+    Xil_DCacheDisable();
+    init_platform();
+    sleep(1);
+    
+    printf("Beginning test\n");
+    //Preparing data  
+    ......
+
+    //Run PL kernels & AIE & Verification
+    errCount = RunTest(MM2S_BASE, S2MM_BASE, (int32_t*)cint16input, int32golden, out, INPUT_SIZE, OUTPUT_SIZE);
+    //errCount = RunTest(MM2S_BASE, S2MM_BASE, (int32_t*)cint16input, int32golden, out, INPUT_SIZE, OUTPUT_SIZE);
+
+    //Post-Processing
+    if(errCount == 0)
+        printf("Test passed. \n");
+    else
+        printf("Test failed! Error count: %d \n",errCount);
+
+    cleanup_platform();
+    return errCount;
+}
+
+main() function 
+#include "graph.cpp" the gaph object
+clipgraph
+graph.cpp AI engine compilation and
+simulation
+__AIESIM__ and __X86SIM__
+
+xil_DCacheDisable() disable data cache.
+RunTest() passes data to the kernel to process return a result
+Xil_Out32 writes to registers to control PL kernels
+clipgraph.init() initializes the graph
+clipgraph.run() starts the graph
+
+xil_io.h contains general driver I/O APIs
+
+he embedded application can deliver data to the MM2S kernel, to introduce it to the AI Engine graph for the Interpolator and Classifier kernels, and read data from the S2MM kernel to continue processing in the embedded application. In this case, address the MM2S and S2MM kernels
+
+#define MM2S_BASE XPAR_MM2S_S_AXI_CONTROL_BASEADDR
+#define S2MM_BASE XPAR_S2MM_S_AXI_CONTROL_BASEADDR
+
+#define MEM_OFFSET 0x10
+#define SIZE_OFFSET 0x1C
+#define CTRL_OFFSET 0x0
+
+ for the implemented kernels is located in the fixed platform xparameters.h file, that is located in the <platform_name>/standalone_domain/bspinclude/include folder
+
+/* Def for peripheral MM2S */
+#define XPAR_MM2S_S_AXI_CONTROL_BASEADDR 0xA4020000
+
+#define XPAR_MM2S_S_AXI_CONTROL_HIGHADDR 0xA402FFFF
+
+/*Definitions S2MM peripheral*/
+#define XPAR_S2MM_S_AXI_CONTROL_BASEADDR 0xA4030000
+#define XPAR_S2MM_S_AXI_CONTROL_HIGHADDR 0xA403FFFF
+
+he xparameters.h file is generated and addressing is dynamic. It is best to reference the address macros for kernels than to hard code them.
+
+#define XMM2S_MM2S_CONTROL_ADDR_AP_CRTL 0x00
+#define XMM2S_MM2S_CONTROL_ADDR_GIE 0x04
+#define XMM2S_MM2S_CONTROL_ADDR_IER 0x08
+#define XMM2S_MM2S_CONTROL_ADDR_ISR 0x0c
+#define XMM2S_MM2S_CONTROL_ADDR_MEM_V_DATA 0x10
+#define XMM2S_MM2S_CONTROL_BITS_MEM_V_DATA 64
+#define XMM2S_MM2S_CONTROL_ADDR_SIZE_DATA 0x1c
+#define XMM2S_MM2S_CONTROL_BITS_SIZE_DATA 32
+
+Xil_Out32(MM2S_BASE + MEM_OFFSET, (uint32_t) memAddr);
+
+//Compile the main.cpp file using the following command:
+
+aarch64-none-elf-gcc -I.. -I. -I../src \
+-I./vck190_baremetal/export/vck190_baremetal/sw/vck190_baremetal/standalone_domain/bspinclude/include \
+-g -c -std=c++17 -o main.o main.cpp
+
+aarch64-none-elf-gcc -I.. -I. -I../src \
+-I./vck190_baremetal/export/vck190_baremetal/sw/vck190_baremetal/standalone_domain/bspinclude/include \
+-g -c -std=c++17 -o aie_control.o ../Work/ps/c_rts/aie_control.cpp
+
+Open the device.
+Load PL-only XCLBIN and get PL UUID.
+Load AI Engine-only XCLBIN and get the AI Engine UUID.
+Use PL UUID with XRT API operating on the PL kernels.
+Use AI Engine UUID with XRT API operating on the AI Engine graphs.
+Operate on the PL kernels and the AI Engine graphs.
+An example host code is as follows:
+
+int open_xclbin(char* pl_xclbinFilename,char*
+aie_xclbinFilename,xrt::device &device, xrt::uuid &pl_id,
+xrt::uuid &aie_id){
+  int ret=0;
+//open device
+device = xrt::device(0); //index=0
+//load PL- XCLBIN & get PL UUID lógica programable
+pl_id = device.load_xclbin(pl_xclbinFilename);
+//Load AI engine only XCLBIN and get AI engine UUID.
+aie_id = device.load_xclbin(aie_xclbinFilename);
+return ret;
+}
+
+int run_graph(const xrt::device &device,const xrt::uuid &pl_id,const xrt::uuid &aie_id,int iterations){
+ int output_size_in_bytes=iterations*WINDOW_SIZE_in_Bytes;
+int OUTPUT_SIZE=output_size_in_bytes/4;
+
+//use PL UUID with XRT API operating on PL kernels
+auto s2mm = xrt::kernel(device, pl_id, "s2mm");
+auto mm2s = xrt::kernel(device, pl_id, "datagen");
+
+// output memory
+auto out_bo = xrt::bo(device, output_size_in_bytes,
+s2mm.group_id(0));
+auto host_out=out_bo.map<int*>();
+
+auto s2mm_run = s2mm(out_bo, nullptr, OUTPUT_SIZE);//1st run for
+s2mm has started
+auto mm2s_run = mm2s(nullptr, OUTPUT_SIZE);
+
+//Use AI Engine UUID with XRT API operating on AI Engine graphs.
+auto gr=xrt::graph(device,aie_id,"gr_pl");
+gr.run(iterations);
+
+int match=0;
+s2mm_run.wait();
+out_bo.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
+for(int i=0;i<OUTPUT_SIZE;i++){
+  if(host_out[i]!=i+1){
+    match=1;
+ }
+}
+return match;
+ }
+}
+
+int main(int argc, char*argv[]) {
+  if(argc < 4) {
+    std::cout << "Usage: " << argv[0] << "<pl_xclbin> <aie_xclbin> <iterations>" << std::endl;
+  return EXIT_FAILURE;
+
+ }
+ char* pl_xclbinFilename=argv[1];
+ char* aie_xclbinFilename=arrv[2];
+ int iterations=atoi(argv[3]);
+
+ xrt::device device;
+ xrt::uuid pl_id,aie_id;
+ int ret;
+
+ ret=open_xclbin(pl_xclbinFilename,aie_xclbinFilename,device,pl_id,aie_id);
+  if(ret==0){
+    std::cout<<""<<std::endl;
+    std::cout<<""<<std::endl;
+ }
+
+ ret=run_graph(device,pl_id,aie_id,iterations);
+std::cout << "TEST" << (ret ? " FAILED ": "PASSED") <<
+std::endl;
+
+   return (ret ? EXIT_FAILURE : EXIT_SUCCESS);
+}
+
+ill the user application, if it hangs.
+Reset the AI Engine and PL kernels into clean status from previous runs using the xbutil reset -d 0 command. It makes sure that:
+The PL kernels, AI Engine, and FIFOs, data width converter IP's inserted by v++ automatically are reset.
+The software parts of XRT, like XRT ZOCL data structures, are reset.
+Run the application with PL-only XCLBIN and AI Engine-only XCLBIN again.
+
+ERROR: [aiecompiler 47-772] Inst g.kernel_a is in conflicting pblocks:(0,0) (5,5) and (20,0) (25,5).
+
+ERROR: [aiecompiler 47-51] AIE Mapper failed to find a legal solution. Please try to relax constraints and/or try alternate strategies like disableFloorplanning.
+
+n some cases the size of the buffers being constrained to a particular tile might exceed the memory capacity of the tile (32 KB in AI Engine architecture). This will result in mapper failure.
+Each tile in the AI Engine architecture has two input and two output DMA channels. If you have constrained buffers in such a way that a particular tile needs more than this number of DMA channels, it will result in mapper failure.
+
+Matrix Multiplication Examples
+ 	Matrix A Size	Matrix B Size	# of Multiplication Operations (MultOps)	#Cycles for Compute
+32 ops/ cycle
+
+#Cycles for Data Loading
+32 bits/ cycle
+
+Example 1	16x64	64x16	16384	512
+(16384/32)
+
+512
+(64x16x16/32)
+
+Example 2	16x64	64x32	32768	1024
+(32768/32)
+
+1024
+(64x32x16/32)
+
+Example: location<kernel>(kernel_1) = tile(20, 0);
+location<buffer>(kernel_1.in[0]) =
+
+        { address(19, 0, 0x0),
+          address(19, 0, 0x2000) }; // double buffer needs two locations
+
+FIFO Depth Constraints
+
+There are limited switch and DMA FIFOs on the device. When deciding on fifo_depth constraints it is important to consider the amount of FIFOs you specify for an area. This includes taking into account if the nets that have fifo_depth constraints also have area group constraints. In this case make sure that all fifo_depth constraints can be met within the specified area.
+
+location<fifo>(net1) = { dma_fifo()}
+location<fifo>(net2) = { dma_fifo(aie_tile, 15, 0, 0x3100, 32)
+location<fifo>(net3) = { ss_fifo(shim_tile, 16, 0, 0),
+dma_fifo(aie_tile, 17, 0, 0x3100, 48)}

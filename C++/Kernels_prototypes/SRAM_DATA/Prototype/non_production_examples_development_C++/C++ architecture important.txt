@@ -1,0 +1,49 @@
+//references AI; AI Engine Tools and Flows User Guide (UG1076) references
+//C++ architecture important
+//AI Engine-ML Kernel and Graph Programming Guide (UG1603) here!!! prgramr arquitectura de C++ 
+//AI Engine-ML Intrinsics User Guide (v2024.2) here
+//https://github.com/ATaylorCEngFIET/MicroZed-Chronicles/blob/master/cam_link_stim_part149.vhd here
+//Overview
+Single Kernel Programming
+
+//MicroZed-Chronicles
+//VHDL_Part56.vhd, programar mirar componentes de Hardware en vhdl o prototipar *tarea
+
+
+
+//Versal Adaptive SoC Programmable //Network on Chip and Integrated Memory //Controller 1.1 LogiCORE
+
+
+// Single Kernel Programming, Introduction to Scalar and Vector Programming
+
+//Iterators are used to read from the //input buffers and write to the //output buffer. For details on the //iterators, see Iterators.
+
+void scalar_mul(input_buffer<int16>& __restrict data1,
+input_buffer<int16>& __restrict data2,
+output_buffer<int32>&__restrict out){
+// iterator to Access input "data"
+auto inIter1=aie::begin(data1);
+auto inIter2=aie::begin(data2);
+//los dos puntos i aie que son
+// iterator to ccess output "out"
+auto autIter=aie::begin(out);
+
+for(int i=0;i<512;i++) {
+//read data from buffer and point to next entry
+int16 a=*inIter1++;
+int16 b=*inIter2++;
+int32 c=a*b;
+//write result to buffer and point to next entry
+*outIter++=c;
+ }
+}
+
+//vectorized of the same kernel executed in the vector processor
+
+void vect_mul(  input_buffer<int16>& __restrict data1,
+input_buffer<int16>__restrict data2,
+output_buffer<int32>& __restrict out){
+//iterator to Access a vector(collection of elements)
+// in the buffer "data1"
+
+}

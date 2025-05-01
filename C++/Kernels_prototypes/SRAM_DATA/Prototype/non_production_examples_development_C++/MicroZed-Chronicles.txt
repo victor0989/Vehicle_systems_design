@@ -1,0 +1,40 @@
+//MicroZed-Chronicles
+//VHDL_Part56.vhd, programar mirar componentes de Hardware en vhdl o prototipar *tarea
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+use IEEE.NUMERIC_STD.ALL;
+
+library UNISIM;
+use UNISIM.VComponents.all;
+
+entity sensor_link_stim is
+-- Port ( );
+end cam_link_stim;
+
+architecture Behavioral of cam_link_stim is
+
+component sensor_link is port(
+        CLK: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                _: in std_logic;
+                
+end component sensor_link;
+
+signal clk : std_logic;
+signal ser_clk : std_logic;
+signal op_mode : mode := full;
+
+signal gen_h_total : integer range 0 to 2047;
+signal gen_h_act : integer range 0 to 2047;
+
+signal gen_v_total : integer range 0 to 2047;
+signal gen_v_act : integer range 0 to 2047;

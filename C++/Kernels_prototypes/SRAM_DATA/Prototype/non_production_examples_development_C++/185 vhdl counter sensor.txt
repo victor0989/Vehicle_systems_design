@@ -1,0 +1,59 @@
+//185 vhdl counter sensor
+//Low-frequency counter 
+library ieee; 
+use ieee. std-logic-1164. all ; 
+use ieee . numeric-std. all ; 
+
+entity low_freq_counter is
+   port(
+      _, _: in std_logic;
+      _: in std_logic;
+      _: in std_logic;
+      _,_,_,_: out std_logic_vector;
+end low_freq_counter;
+
+architecture arch of low_freq_counter is
+   type state_type is (idle, count, frq, b2b);
+   signal state_reg, state_next: state_type;
+   signal prd: std_logic_vector(9 downto 0);
+   signal dvsr, dvnd, quo: std_logic_vector(19 downto 0);
+signal pdr_start, div_start, b2b_star: std_logic;
+signal prd_done_tick, div_done_tick, b2b_done_tick:
+std_logic;
+begin
+-- cmpnent
+--period count -processor/sensor
+prd-count-unit: entity work.period-counter 
+port map(clk=>clk, reset=>reset , start=>prd-start , si=>si, 
+ready=>open, done-tick=>prd-done-tick , prd=>prd); 
+__ instantiate division circuit 
+div_unit: entity work.div
+generic map(W<=20, CBIT=>5)
+port map(_=>_, _=>_, _=>_, _=>_, _=>_, _=>_);
+********************************************************
+--OPTIONAL SIGNALS
+-- binary-to-BCD convertor
+bin2bcd_unit:port map 
+--c o n v e r t o r 
+-- (clk=>clk, reset=>reset , start=>
+--b2b_start,  
+-- =>quo (12 downto 0) , ready=>open, 
+one_tick=>b2b_done_tick, 
+bcd3=>bcd3, bcd2=>bcd2, bcdl=>bcdl, bcdO=>bcdO); 
+******************************************************************
+-- signal width extensión
+dvdn <= std_logic_vector(to_unsigned(10000000, 20));
+dvsr <= "0000000000" & prd;
+
+-- master FSM
+process(_,_)
+begin
+   if _='1' then
+      state_reg <= idle;
+   elseif (_'evento and _='1') then
+     state_reg <= state_next;
+   end if;
+ end process;
+
+process(state_reg, start, )
+//pag 187

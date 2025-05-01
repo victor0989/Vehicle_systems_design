@@ -1,0 +1,414 @@
+//C++ API traffic generator
+General Purpose C++ API
+
+Here is the list of general purpose APIs that can be used with custom user-defined datatypes. With these API you can send and receive data in the form of byte_arrays only. You must convert your custom datatype to byte_arrays prior to transport, and convert the received value back to your custom datatype for use by your application. Conversion API are provided as described below.
+
+Instantiating Classes to Send or Receive Data
+xtlm_ipc::axis_master   input_port(std::string name)
+xtlm_ipc::axis_slave      output_port(std::string name)
+
+Parameters:
+  name → string matching the AXI4-Stream interface
+
+send_data(data, tlast)
+creates a non-blocking call to send data
+
+Parameters:
+  RETURNS nothing
+  data -> std::vector<char>
+  tlast -> boolean value, can be true or false 
+
+receive_data(data)
+creates a blocking call to receive data
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+
+std::vector<char> recv_data; 
+output.receive_data(<recv_data>)
+
+receive_data_with_size()
+
+receive_data_with_size(data, data_size)
+creates a blocking call to receive a specified amount of data
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data -> std::vector<char>
+  cata_size -> integer value indicating the amount of data in bytes to receive
+
+Note: data_size is specified in bytes
+
+std::vector<char> recv_data;
+output.receive_data_with_size(<recv_data>, 1024)
+
+receive_data_on_tlast(data)
+creates a blocking call returning data after receiving tlast packet
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+
+Note: The datatype must be specified during object instantiation
+
+receive_data_on_tlast(data)
+creates a blocking call returning data after receiving tlast packet
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+
+Note: The datatype must be specified during object instantiation
+
+
+std::vector<char> recv_data; 
+output.receive_data_on_tlast(<recv_data>)
+
+byte_array =
+input_port.uInt64ToByteArray(user_list)
+
+Parameters:
+  Returns list of specified
+data type converted from
+byte_array
+  user_list ->
+std::vector<T>
+// T is data type
+present in function signatura
+// For example in byteArrayToFloat user_list is a vector of type float
+  byte_array → list created using create_byte_array or conversion API
+
+byte_array = input_port.uInt64ToByteArray(user_list)
+
+Parameters:
+  Returns list of specified data type converted from byte_array
+  user_list → std::vector<T> 
+  // T is the data type present in function signature. 
+  // For example in byteArrayToFloat user_list is a vector of type float
+  byte_array → list created using create_byte_array or conversion APIs
+
+
+user_list = output_port.byteArrayTouInt16(byte_array)
+
+Parameters:
+  Returns list of specified data type converted from byte_array
+  byte_array → list created using create_byte_array or conversion APIs
+  user_list → std::vector<T> 
+  // T is the data type present in function signature. 
+  // For example in byteArrayToFloat user_list is a vector of type float.
+
+xtlm_ipc::axis_initiator_socket_util<xtlm_ipc::BLOCKING> socket_util("<sender_io_name>")	To instantiate the master for blocking API calls
+xtlm_ipc::axis_target_socket_util<xtlm_ipc::BLOCKING> socket_util("<receiver_io_name>")	To instantiate the slave for blocking API calls
+xtlm_ipc::axis_initiator_socket_util<xtlm_ipc::NON_BLOCKING> socket_util("<sender_io_name>")	To instantiate the master for non-blocking API calls
+xtlm_ipc::axis_target_socket_util<xtlm_ipc::NON_BLOCKING> socket_util("<receiver_io_name>")	To instantiate the slave for non-blocking API calls
+transport(data, size(), tlast)	
+API to send data in the form of vector of char, specify the size of the data
+
+Optional argument TLAST
+
+if tlast = false, No TLAST is driven
+
+if tlast = true, last data beat has TLAST=true
+
+Default value of TLAST is true.
+
+transport(data, tlast)	
+API to send data in the form of vector of char
+
+Optional argument TLAST
+
+if tlast = false, No TLAST is driven
+
+if tlast = true, last beat has TLAST=true
+
+Default value of TLAST is true.
+
+transport(packet)	API to send the AXI4-Stream packets
+sample_transaction(data)	
+API to receive data in the form of vector of char
+
+Receives data beat by beat (one sample_transaction() call gives one beat of data).
+
+sample_transaction(data, tlast)	
+API to receive data in the form of vector of char
+
+Receives data beat by beat (one sample_transaction() call gives one beat of data).
+This API returns the tlast value.
+
+sample_transaction(packet)	
+Receives data beat by beat (one sample_transaction() call gives one beat of data).
+
+end_of_simulation()	
+End and exit the simulation using this API
+
+Preferably use in External TG with sw_emu/hw_emu
+
+disconnect()	
+To disconnect the socket connections (DataIn, DataOut etc)
+
+Preferably use in External TG with AI Engine sim/x86sim
+
+xtlm_ipc::axis_initiator_socket_util<xtlm_ipc::BLOCKING> sender_obj("<sender_io_name>")
+
+xtlm_ipc::axis_target_socket_util<xtlm_ipc::NON_BLOCKING> data_out("DataOut");
+
+transport(std::vector<char> data, int size(), bool tlast=true)
+
+API
+data_in.transport(data, size(), tlast)
+
+data
+
+size()
+
+tlast
+
+Example C++:
+
+const unsigned int NUM_TRANSACTIONS = 8;
+bool tlast;
+std::vector<char> data; // Prepare data in the form of vector
+od char
+for(int i = 0; i < NUM_TRANSACTIONS; i++) {data = generate_data();
+data
+//print(data);
+if (i==NUM_TRANSACTIONS-1)
+  tlast = true;
+
+}
+else{
+  tlast = false;
+}
+data_in.transport(data.data(), data.size(), tlast);
+
+//transport(std::vector<char>data,bool tlast=true)
+
+//API
+data_in.transport(data, tlast)
+data
+tlast
+
+transport(xtlm_ipc::axis_payload packet)
+sender_obj.transport(packet)
+//axi stream packet
+packet
+datatlast
+tuser
+tkeep
+
+const unsigned int NUM_TRANSACTIONS = 8;
+
+xtlm_ipc::axis_payload& packet;
+
+for(int i = 0; i < NUM_TRANSACTIONS; i++) {
+//generate_data() is your custom code to generate traffic
+
+std::vector<char> data = generate_data();
+
+//set packet attrbts
+packet.data = data;
+packet.tlast = 1; // AXIS atrbts
+required
+//block transport API to send the transaction
+data_in.transport(packet);
+}
+
+//sample_transaction(std::vector<char>& data)
+Receives the data if you prefer not to have fine granular control (recommended).
+
+//API Usage
+//Calls the API using the receiver object.
+//Parameters
+//The empty vector of char to receive the data:
+
+//C++ API program for vitis
+const unsigned int NUM_TRANSACTIONS = 100;
+unsigned int num_received = 0;
+std::vector<char> data; //empty vector for receive data
+transactions API
+
+while(num_received < NUM_TRANSACTIONS) {
+  data_out.sample_transaction(data);
+//data vector sample_transaction flls 
+//print(data);
+num_received +=1; //user logic
+
+}
+
+//Vectores en c++ API
+The empty vector of char to receive the data:
+data
+
+This is the received tlast value that the API returns:
+tlast
+
+//C++ example Advanced C++ Traffic GEnerator API
+const unsigned int NUM_TRANSACTIONS = 100;
+unsigned int num_received = 0;
+std::vector<char> data;
+bool recv_tlast;
+
+while(num_received < NUM_TRANSACTIONS) {
+  data_out.sample_transactions(data, recv_tlast); //data vector
+
+// If the current sample has tlast as true, recv_tlast will be set to true
+if (recv_tlast) {
+  // do relevent logic if tlast is true
+  //
+ // print("receiving data");
+}
+num_received +=1;
+}
+
+receiver_obj.sample_transaction(packet)
+
+packet
+
+unsigned int num_received = 0;
+xtlm_ipc::axis_payload packet;
+
+data_out.sample_transaction(packet);
+//API transact fills empty packet of type 
+xtlm_ipc::axis_payload
+
+//Process the packet
+num_received +=1;
+
+//end_of_simulation();
+Ends and exits the simulation.
+
+API Usage
+Calls the API using the sender object:
+sender_obj.end_of_simulation()
+
+Example
+//! Instantiate IPC socket with name matching in IPI diagram...
+  xtlm_ipc::axis_initiator_socket_util<xtlm_ipc::BLOCKING> data_in("DataIn");
+
+  const unsigned int NUM_TRANSACTIONS = 100;
+  xtlm_ipc::axis_payload packet;
+
+  std::cout << "Sending " << NUM_TRANSACTIONS << " Packets..." << std::endl;
+  for (int i = 0; i < NUM_TRANSACTIONS; i++) {
+    packet = generate_packet();
+    print(packet);
+    socket_util.transport(packet);
+  }
+  file.close();
+  usleep(10000);
+  data_in.end_of_simulation();
+
+barrier_wait()
+For non-blocking, the API waits for all transactions to complete.
+
+API Usage
+Calls the API using the sender object.
+Example:
+
+const unsigned int NUM_TRANSACTIONS = 8;
+std::vector<char> data;
+std::cout <<"Sending" << NUM_TRANSACTIONS << " data transactions..."
+<<std::endl;
+
+for(int i = 0; < NUM_TRANSACTIONS/2; i++) {
+  data = generate_data();
+  print(data);
+  data_in.transport(data.data(), data.size());
+
+}
+
+// "Adding Barrier to complete outstand transact"<<
+std::endl;
+data_in.barrier_wait();
+
+for(int i = NUM_TRANSACTIONS/2; i < NUM_TRANSACTIONS; i++) {
+  data = generate_data();
+  print(data); //user code to print the data
+  data_in.transport(data.data(), data.size());
+
+}
+
+//get_num_transactions()
+For non-blocking, the API is used to check if any transaction is available to receive.
+
+This method is useful in the non-blocking version because sample_transaction may not fill the vector/payload if no transaction is available. It is recommended to check before calling sample_transaction with NON_BLOCKING receiver.
+
+//API Usage
+//Calls the API using the sender object.
+//Example
+
+xtlm_ipc::axis_target_socket_util<xtlm_ipc::NON_BLOCKING>
+receiverObj("Receiver");
+xtlm_ipc::axis_payload receiverPayload;
+// std::vector<char> receiveData;
+if (receiverObj.get_num_transactions() != 0) {
+// checks if transaction is available
+receiverObj.sample_transaction(receiverPayload);
+//fills the receiverPayload
+
+/ One can use with vector<char> as parameter also
+// such as receiverObj.sample_transaction(receiveData);
+}
+
+//Comments:
+//AXI4 Memory Map External Traffic through Python/C++
+
+The AXI4 memory map external traffic which is supported only for hardware emulation has the following specifications:
+
+Only transaction-level granularity is supported.
+Re-ordering of transactions is not supported.
+Parallel Read, Write transactions are not supported (transactions will be serialized).
+Unaligned transactions are not supported.
+The following figure shows the high-level design.
+
+AXI4 Memory Map External Traffic Design
+
+Code snippet for C++ Master:
+auto payload = generate_random_transaction(); //Custom Random transaction generator. Users can configure AXI propeties on the payload.
+/* Or User can set the AXI transaction properties as follows
+payload->set_addr(std::rand() * 4);
+payload->set_len(1 + (std::rand() % 255));
+payload->set_size(1 << (std::rand() % 3));
+*/
+ 
+master_uti.b_transport(*payload.get(), std::rand() % 0x10); //A blocking call. Response will be updated in the same payload. Each AXI MM transaction will use same payload for whole transaction
+std::cout << "-----------Transaction Response------------" << std::endl;
+std::cout << *payload << std::endl; //Prints AXI transaction info
+
+Code sniped for c++ slave:
+auto payload = slave_util.sample_transaction(); //sampl
+the trans
+
+//if it is read transact, give read data
+if(payload.cmd() == xtlm_ipc::aximm_packet_command_READ)
+{
+   rd_resp.resize(payload.len()*payload.size());
+   std::generate(rd_resp.begin(), rd_resp.end(), []()
+  {   return std::rand()%0x100;});
+
+}
+
+//set AXI response (read write)
+payload.set_resp(std::rand()%4);
+slave_util.send_response(payload); //send the response to the master
+
+
+AXI4 Memory Map I/O Limitations in the Platform
+
+The following shows the AXI4 memory map I/O limitations in the platform:
+
+During platform development, AXI4 memory map I/O can be connected to any memory/slave.
+Master AXI4 memory map I/O cannot connect to kernel as kernel cannot provide an additional slave interface.
+AXI4 memory map Slave I/O can be used without any restrictions.
+AXI4 memory map Master I/O can be used where data needs to be driven from external process to memory/slave.
+
+Host and device timeline events
+OpenCL™ or XRT native API call sequences
+Kernel execution sequence
+Kernel start and stop signals
+FPGA trace data including AXI transactions
+Power profile data for the accelerator card
+AI Engine profiling and event trace
+User event and range profiling
+

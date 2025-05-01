@@ -1,0 +1,87 @@
+//Writing Traffic Generators in C++
+//Host Programming for Bare-Metal,https://docs.amd.com/r/en-US/ug1076-ai-engine-environment/Host-Programming-for-Bare-Metal
+
+*****************************************************************
+$XILINX_VIVADO/data/emulation/cpp/inc/xtlm_ipc/axis/
+
+-I $XILINX_VIVADO/data/emulation/cpp/inc/xtlm_ipc/axis/
+
+-L $XILINX_VIVADO/data/emulation/cpp/lib/
+************************************************************************
+
+xtlm_ipc::axis_master input_port(std::string name)
+xtlm_ipc::axis_slave   output_port(std::string name)
+
+Parameters:
+  name -> string matching the AXI4-Stream interface
+  send_data(data, tlast)
+  creates a non-blocking call to send data
+
+Parameters:
+  RETURN nothing
+  data -> std::vector<char>
+  tlast -> boolean value, can be true or false
+
+***********************************************************************************
+
+receive_data(data)
+creates a blocking call to receive data
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+************************************************************************************
+std::vector<char> recv_data;
+output.receive_data(<recv_data>)
+
+receive_data_with_size(data, data_size)
+creates a blocking call to receive a specified amount of data
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+  data_size -> integer value indicating the amount of data in bytes to receive
+
+Note: data_size is specified in bytes
+
+************************************************************************
+
+std::vector<char> recv_data;
+output.receive_data_with_size(<recv_data>, 1024)
+
+****************************************************************************
+
+receive_data_on_tlast(data)
+creates a blocking call returning data after receiving tlast packet
+
+Parameters:
+  RETURNS the received data as a byte_array
+  data → std::vector<char>
+
+Note: The datatype must be specified during object instantiation
+
+***************************************************************************
+std::vector<char>recv_data;
+output.receive_data_on_tlast(<recv_data>)
+
+******************************************************************************API data send value data byte_array
+byte_array = input_port.uInt64ToByteArray(user_list)
+
+Parameters:
+  Returns list of specified data type converted from byte_array
+  user_list → std::vector<T> 
+  // T is the data type present in function signature. 
+  // For example in byteArrayToFloat user_list is a vector of type float
+  byte_array → list created using create_byte_array or conversion APIs
+************************************************************************************
+user_list = output_port.byteArrayTouInt16(byte_array)
+
+Parameters:
+  Returns list of specified data type converted from byte_array
+  byte_array → list created using create_byte_array or conversion APIs
+  user_list → std::vector<T> 
+  // T is the data type present in function signature. 
+  // For example in byteArrayToFloat user_list is a vector of type float
+******************************************************************************************************
+
+
