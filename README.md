@@ -1,4 +1,7 @@
-# Concept: Vehicle Systems Design & C++ examples to developt AI systems/kernels & Hardware components with Verilog prototyping and VHDL across the IP block integration process
+# 1) Concept: Space vehicle Systems Design with Plasma research, design
+# 2) C++ examples to developt AI systems/kernels
+# 3) Hardware components with Verilog prototyping
+# 4)VHDL across the IP block integration process
 
  **Project Overview**  
 Advanced vehicle systems using:
