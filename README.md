@@ -3,9 +3,9 @@
  - Hardware components with Verilog prototyping
  - VHDL across the IP block integration process
 
- **Project Overview**  
+ # Project Overview
 Advanced vehicle systems using:
-
+---
 - **General Relativity Metrics**
 - **Application Acceleration** with Vitis Unified Software Platform (UG1393)
 - **Thermal Protection Materials** inspired by NASA's Parker Solar Probe
