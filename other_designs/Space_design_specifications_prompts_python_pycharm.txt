@@ -1,11 +1,21 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::                                                                     ::
 ::        Plasma Reactor Capture & Cryogenic Stabilization Simulation   ::
-::                                   ::
+::                                  ::
 ::                                                                     ::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Source: What could you extract? Application:
+1.Understand basic physics: pressure, temperature, gas flow, thermodynamics.
+
+2.Know the properties of materials: resistance to heat and pressure.
+
+3.Calculate the size of the chamber and nozzle using basic ideal gas and thermodynamic formulas.
+
+4.Design the cooling system so the chamber can survive.
+
+5.Consider the supply system (pumps and tanks).
+
+6.Source: What could you extract? Application:
 Outer layers of a white dwarf. Degenerate plasma. Modeling gravitational fields or curved space.
 Relativistic phenomena (local gravitational waves). Anomalies in space-time. Sources of curvature for experiments.
 Matter decay (as virtual particles). Possible access to negative point energy. Creating regions of "exotic matter" necessary for tunneling or curvature.
@@ -97,7 +107,7 @@ print("Stable Plasma Temperature (after Cryogenic Stabilization): {:.2f} K".form
 print("Heat Dissipated during Transport: {:.2e} J (Cooling Effect)".format(dissipated_heat))
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-[2:13, 21/5/2025] victoralonsogarcia8: Here are the additional details about titanium and other specifications mentioned in the text:
+Here are the additional details about titanium and other specifications mentioned in the text:
 
 Titanium Specifications
 1. Titanium Alloy: Used for the radiation vault due to its high strength-to-weight ratio, corrosion resistance, and ability to handle launch stresses.
@@ -118,7 +128,7 @@ Electronic Components Specifications
 1. RAD750 Microprocessor: The RAD750 microprocessor is a radiation-hardened processor that provides reliable processing in high-radiation environments.
 2. Electronic Boxes: The spacecraft has at least 20 different electronic boxes, each with its own specific function and design.
 3. Power and Data Distribution: The spacecraft has a power and data distribution unit that provides power and data to the various electronic components.
-[2:15, 21/5/2025] victoralonsogarcia8: Here is the revised text in English:
+
 
 Radiation Vault Specifications
 1. Material: Titanium alloy (Ti-6Al-4V) for the radiation vault.
@@ -146,7 +156,6 @@ Electronic Components
 1. RAD750 Processor: Radiation-hardened processor that provides reliable processing in high-radiation environments.
 2. Electronic Boxes: At least 20 different electronic boxes, each with its own specific function and design.
 3. Power and Data Distribution: Power and data distribution unit that provides power and data to the various electronic components.
-[2:25, 21/5/2025] victoralonsogarcia8: Here is the information in English:
 
 Metrics and Materials/Components
 Propulsion
@@ -397,3 +406,1044 @@ plotted in Fig. 3–1 for Mx = 1.0, where Ax = At the throat or minimum area, al
 with corresponding ratios for T/T0 and p/p0. In general,
 
 Ay / Ax = (Mx / My) * sqrt{ [1 + ((k−1)/2) * My^2] / [1 + ((k−1)/2) * Mx^2] }^( (k+1)/(k−1) )
+
+*******************************************************************************************************************
+An “ideal rocket engine” is designed to operate at sea level using a propellant 
+whose products of combustion have a specific heat ratio k of 1.3. Determine the required 
+chamber pressure if the exit Mach number is 2.52. Also determine the nozzle area ratio 
+between the throat and exit.
+
+SOLUTION. For “optimum expansion” the nozzle exit pressure must equal the local 
+atmospheric pressure, namely, 0.1013 MPa. If the chamber velocity may be neglected, 
+then the ideal chamber pressure is the total stagnation pressure, which can be found from 
+Eq. 3–13 as:
+
+p0 = p * [ 1 + 1/2 * (k − 1) * M² ]^(k / (k − 1))  
+   = 0.1013 * [ 1 + 0.15 * (2.52)² ]^(1.3 / 0.3)  
+   = 1.84 MPa
+
+The ideal nozzle area ratio A2/At is determined from Eq. 3–14 setting Mt = 1.0 at the throat 
+(see also Fig. 3–1):
+
+A2 / At = (1 / M2) * 
+          [ (1 + ((k − 1)/2) * M2²) / (k + 1)/2 ]^[(k + 1) / (2 * (k − 1))]  
+        = (1 / 2.52) * 
+          [ (1 + 0.15 * 2.52²) / 1.15 ]^(2.3 / 0.6)  
+        = 3.02
+
+Note that *ideal* implies no losses, whereas *optimum* is a separate concept reflecting 
+the best calculated performance at a particular set of given pressures. Optimum 
+performance is often taken as the design condition and it occurs when p2 = p3, as will 
+be shown in the section on the thrust coefficient (the peak of the curves in Figs. 3–6 
+and 3–7 for fixed p1/p3).
+
+The nozzle exit velocity (at y = 2), v2, can be solved for from Eq. 3–2:
+
+v2 = √[ 2J(h1 − h2) + v1² ]   (3–15a)
+
+As stated, this relation strictly applies when there are no heat losses. This equation 
+also holds between any two locations within the nozzle, but hereafter subscripts 1 
+and 2 will only designate nozzle inlet and exit conditions.
+
+For constant k, the above expression may be rewritten with the aid of Eqs. 3–6 and 3–7:
+
+v2 = √[ (2k / (k − 1)) * R * T1 * 
+        [1 − (p2 / p1)^((k − 1)/k)] + v1² ]
+
+Example 6–1. A liquid oxygen–liquid hydrogen rocket thrust chamber that produces
+10,000-lbf thrust, operates at a chamber pressure of 1000 psia, a mixture ratio of 3.40,
+has exhaust products with a mean molecular mass 𝔐 of 8.90 lbm/lb-mol, combustion
+temperature T1 of 4380°F, and specific heat ratio of 1.26. Determine the nozzle throat
+area, nozzle exit area for optimum operation at an altitude where p3 = p2 = 1.58 psia,
+the propellant sea-level weight and the volume flow rates, and the total propellant
+requirements for 2.5 min of operation. For this problem, assume that the actual
+specific impulse Is is 97% of theoretical and that the thrust coefficient CF is 98% of
+the ideal value.
+
+SOLUTION. The exhaust velocity for an optimum nozzle is determined from Eq. 3–16,
+but with a correction factor of g0 for the English Engineering system:
+
+ c = v2 = √[2 g0 k/(k−1) * (R′ T1 / 𝔐) * (1− (p2/p1)^((k−1)/k))]
+
+ = √[2 × 32.2 × 1.26 / 0.26 × 1544 × 4840 / 8.9 × (1−0.00158^0.206)] = 13,890 ft/sec
+
+The theoretical specific impulse is c/g0 = 13,890 / 32.2 = 431 sec. The actual
+specific impulse then becomes 0.97 × 431 = 418 sec.
+
+The theoretical or ideal thrust coefficient is found from Eq. 3–30 or Fig. 3–5
+(p2 = p3) for pressure ratio p1/p2 = 633 to be CF = 1.76. Actual thrust coefficient
+is 98% of this, so CF = 1.72.
+
+The throat area required may be found from Eq. 3–31:
+
+ At = F / (CF p1) = 10,000 / (1.72 × 1000) = 5.80 in.^2 (2.71 in. diameter)
+
+The optimum area ratio is found from Eq. 3–25 or Fig. 3–4 to be 42. The exit area
+is 5.80 × 42 = 244 in.^2 (17.6 in. diameter).
+
+At sea level, weight density of oxygen is 71.1 lbf/ft^3 and hydrogen 4.4 lbf/ft^3.
+
+Propellant weight flow rates (Eqs. 2–5, 6–3, and 6–4) at sea level are:
+
+  ṁw = F / Is = 10,000 / 418 = 24.0 lbf/sec
+  ṁwo = ṁw r / (r + 1) = 24.0 × 3.40 / 4.40 = 18.55 lbf/sec
+  ṁwf = ṁw / (r + 1) = 24 / 4.40 = 5.45 lbf/sec
+
+Volume flow rates from densities:
+
+  Ṽo = ṁwo / ρo = 18.55 / 71.1 = 0.261 ft^3/sec
+  Ṽf = ṁwf / ρf = 5.45 / 4.4 = 1.24 ft^3/sec
+
+For 150 sec operation (including start/stop transients):
+
+ Oxygen weight: 18.55 × 152 = 2820 lbf
+ Hydrogen weight: 5.45 × 152 = 828 lbf
+ Oxygen volume: 0.261 × 152 = 39.7 ft^3
+ Hydrogen volume: 1.24 × 152 = 188.5 ft^3
+
+Note hydrogen volume is nearly five times oxygen due to low density.
+
+---
+
+Propellant Tanks:
+
+- Liquid bipropellant systems store oxidizer and fuel in separate tanks.
+- Tanks must handle cryogenic temperatures and pressures.
+- Materials include aluminum, stainless steel, titanium, alloy steels, and fiber-reinforced plastics.
+- Ullage volume (3-10% tank volume) allows for thermal expansion and gas accumulation.
+- Expulsion efficiency is typically 97–99.7%, residual propellant remains in tanks and pipes.
+- Optimal tank shape is spherical for minimum mass; larger tanks are often cylindrical.
+- Cryogenic tanks are insulated, vented, and require pre-cooling to prevent ice formation.
+- Pressure safety devices prevent overpressure and tank failure.
+- Tanks operate at pressures from 1.3 to 9 MPa (200 to 1800 psi).
+
+****************************************************************************************************************************************
+Liquid Propellant Rocket Propulsion Systems
+Main Components
+Liquid propellant rocket propulsion systems include:
+
+A rocket engine
+
+A set of tanks to store and supply propellants
+
+These systems contain all the necessary hardware and propellants to generate thrust.
+
+Rocket Engine Structure
+Each engine consists of:
+
+One or more thrust chambers
+
+Feed mechanisms to deliver propellants from tanks to the chamber(s)
+
+A power source to operate the feed mechanisms
+
+Plumbing to transfer liquid propellants under pressure
+
+A structural frame to transmit thrust forces
+
+Control devices (e.g., valves) to:
+
+Start/stop the engine
+
+Vary propellant flow and thus adjust thrust
+**********************************************************************************************************************************************
+Propellant Delivery
+There are two main delivery methods:
+
+Pressurized gas expels the propellants from the tanks
+
+Pumps transport propellants to the thrust chambers
+
+Example: Space Shuttle Main Engine (SSME) / RS-25
+Thrust: 512,000 lbf (vacuum)
+
+Propellants: Liquid oxygen (LOX) and liquid hydrogen (LH2)
+
+RS-25 is a non-reusable version of the SSME with higher thrust
+
+Includes:
+
+2 low-pressure booster turbopumps
+
+2 high-pressure main turbopumps
+
+Tank pressurization via gasified LOX and LH2
+
+Additional Systems (in some engines)
+Thrust vector control (TVC) – for changing thrust direction
+
+Thrust modulation – for variable thrust
+
+Engine condition monitoring – for engine health tracking
+
+Instrumentation and sensors
+********************************************************************************************************************************
+Design Considerations
+The propulsion system is tailored to specific mission requirements, such as:
+
+Application (e.g., anti-aircraft missile, space launcher)
+
+Flight path, velocity change, maneuvers
+
+Storage/orbital life, number of units, safety, cost
+
+From these mission requirements, engine specs are derived:
+
+Thrust-time profile
+
+Specific impulse
+
+Number of chambers
+
+Total impulse
+
+Restart capability
+
+Propellant choice
+
+Engine mass and size
+
+Optimization may apply to:
+
+Thrust
+
+Chamber pressure
+
+Mixture ratio
+
+Nozzle area
+
+Component layout and cycles
+****************************************************************************************************************************************
+Engine Classification
+Engines can be:
+
+Reusable (e.g., SSME)
+
+Single-use (e.g., expendable launch vehicles)
+
+Restartable or single-firing
+
+Grouped by:
+
+Stage (booster/upper stage)
+
+Application
+
+Thrust level
+
+Feed system type (pressurized vs turbopump)
+
+Thrust Chamber
+Main functions:
+
+Mix, atomize, and burn propellants to produce high-speed exhaust
+
+Major parts:
+
+Injector
+
+Combustion chamber
+
+Nozzle
+
+Cooling methods:
+
+Regenerative cooling – fuel circulates through walls to absorb heat
+
+Radiation cooling – uses high-temp materials like niobium
+
+Ablative cooling – materials absorb and vaporize heat
+
+Feed Systems
+Pump-fed systems – used for high-thrust applications
+
+Pressure-fed systems – gas expels propellant from tanks
+
+(Discussed in Sections 6.3, 6.4, 6.6)
+
+Propellant Types
+(Explained in Chapter 7)
+
+Oxidizers: liquid oxygen, nitric acid, nitrogen tetroxide
+
+Fuels: kerosene, alcohol, liquid hydrogen
+
+Table 6–1: Engine Categories Summary rewritten in a linear and ordered format for clarity and study:
+
+Engine Categories – Linear Comparison
+1. Mission
+
+Boost Propulsion: Large velocity change
+
+Auxiliary Propulsion: Attitude/trajectory control
+
+2. Applications
+
+Boost Propulsion: Launch vehicles, missiles
+
+Auxiliary Propulsion: Satellites, rendezvous stages
+
+********************************************************************************************************************************
+3. Impulse
+
+Boost Propulsion: High
+
+Auxiliary Propulsion: Low
+
+4. Number of Thrust Chambers
+
+Boost Propulsion: 1–4
+
+Auxiliary Propulsion: 4–24
+
+5. Thrust per Chamber
+
+Boost Propulsion: 1,000–1,770,000 lbf
+
+Auxiliary Propulsion: 0.001–4,500 N (up to 1,000 lbf)
+
+6. Feed System
+
+Boost Propulsion: Turbopumps (mostly)
+
+Auxiliary Propulsion: Pressurized gas
+
+7. Tank Pressure
+
+Boost Propulsion: 20–55 psi (0.14–0.38 MPa)
+
+Auxiliary Propulsion: 100–2,500 psi (0.69–17.2 MPa)
+
+8. Cooling Method
+
+Boost Propulsion: Propellant-cooled
+
+Auxiliary Propulsion: Radiation-cooled
+
+9. Propellants Used
+
+Boost Propulsion: Cryogenic or storable liquids
+
+Auxiliary Propulsion: Storable liquids, monopropellants
+*************************************************************************************************************************************
+
+10. Chamber Pressure
+
+Boost Propulsion: 350–3,600 psi (2.4–21 MPa)
+
+Auxiliary Propulsion: 20–400 psi (0.14–2.1 MPa)
+
+11. Number of Starts
+
+Boost Propulsion: Up to 4
+
+Auxiliary Propulsion: Several thousand
+
+12. Firing Duration
+
+Boost Propulsion: A few minutes
+
+Auxiliary Propulsion: Up to several hours
+
+13. Shortest Possible Duration
+
+Boost Propulsion: 5–40 seconds
+
+Auxiliary Propulsion: Approximately 0.02 seconds (pulsing)
+
+14. Start Time
+
+Boost Propulsion: Up to several seconds
+
+Auxiliary Propulsion: 0.004–0.080 seconds
+
+15. Operational Space Life
+
+Boost Propulsion: Hours to months
+
+Auxiliary Propulsion: Up to 15 years or more
+***********************************************************************************************************************************************************************
+High-Pressure Gas Tanks:
+
+Tanks for high-pressure gases used to push propellants need very high pressures (about 6.9 to 69 MPa or 1000 to 10,000 psi).
+
+These tanks are usually spherical to keep their weight low, and several small tanks can be linked together.
+
+Sometimes, small high-pressure tanks are placed inside the liquid propellant tanks.
+
+Turbopump Feed Systems:
+
+These systems pressurize the propellant tanks slightly (around 0.07 to 0.34 MPa or 10 to 50 psi) to prevent pump damage.
+
+The low pressure means tank walls can be thinner and lighter.
+
+Problems in Flight:
+
+Liquids inside tanks can slosh around due to vehicle movements, causing issues like gas bubbles entering fuel lines, which can disrupt engine combustion.
+
+Vortexing (swirling) can also cause gas to enter outlets, especially if the vehicle spins.
+
+Internal baffles and special devices help reduce sloshing and vortexing.
+
+In zero gravity (space), liquids float and may not cover the tank outlet, allowing gas bubbles to enter.
+
+Special devices like pistons, bladders, flexible diaphragms, or surface tension screens help keep liquid at the outlet and prevent gas entry.
+
+Sometimes small thrusters apply acceleration to help settle the liquid in zero gravity.
+
+Positive Expulsion Devices:
+
+These devices separate pressurizing gas from liquid propellant to avoid mixing.
+
+Benefits include preventing gas dissolving in the propellant, allowing hot gases for pressurization, and avoiding chemical reactions or freezing in lines.
+
+Different types include elastomeric diaphragms, inflatable bladders, metallic diaphragms, pistons, and surface tension screens, each with pros and cons.
+
+Center of Gravity Control:
+
+Piston devices help keep the vehicle’s center of gravity predictable, important for stable flight and control.
+
+Propellant Feed Systems Overview:
+
+Their main jobs are to increase propellant pressure and deliver the right flow to the engines.
+
+Energy comes from pressurized gas, pumps, or both.
+
+The system design depends on mission needs, cost, complexity, and minimizing weight.
+
+Gas pressure feed systems work better for low total impulse and thrust, while turbopumps are better for high pressure and large missions.
+
+Importance of Pressure and Flow:
+
+Knowing local pressures and flow rates is critical for design, testing, and engine control.
+
+It helps ensure engines run correctly, avoid damage, and optimize performance.
+
+Monitoring these values during tests can detect problems early.
+
+*************************************************************************************************************************************************************************
+Common Physical Hazards of Propellants
+
+Corrosion: Certain propellants (e.g., nitrogen tetroxide, nitric acid, nitric oxide, hydrogen peroxide) require special container materials. Contamination with corrosion products can alter propellant properties, rendering them unsuitable. Corrosion from gaseous reaction products poses risks to launch structures and nearby communities.
+
+Explosion Hazard: Some propellants (e.g., hydrogen peroxide, nitromethane) can destabilize over time and potentially detonate depending on impurities, temperature, and shock. Accidental mixing of liquid oxidizers (e.g., liquid oxygen) and fuels may cause detonations, often during transport or launch mishaps.
+
+Fire Hazard: Many oxidizers react spontaneously with organics causing fires. Propellants like nitric acid, nitrogen tetroxide, fluorine, and hydrogen peroxide can ignite organic materials upon contact. Oxygen enhances existing fires but typically does not ignite materials alone.
+
+Accidental Spills: Mishaps during engine operation or transport can cause hazardous spills leading to fires or health hazards. Regulatory guidelines govern marking, containment, and emergency responses.
+
+Health Hazards: Exposure to many propellants causes toxic effects, including severe skin burns (e.g., nitric acid), nausea (aniline, hydrazine), carcinogenic risks (hydrazine derivatives), eye irritation, and respiratory damage from inhalation. OSHA limits define safe exposure thresholds.
+
+Toxic Propellants Handling: Requires strict procedures for handling, transfer, transport, inspection, and post-test clean-up. Detection instruments, protective equipment (masks, gloves, shields), decontamination chemicals, and emergency protocols are essential. Toxic propellant operations demand significantly more trained personnel.
+
+Materials Compatibility: Limited materials are compatible with certain propellants, especially for seals (gaskets, O-rings). Incompatible materials can cause leaks, fires, corrosion, or failure. Cryogenic propellants can make materials brittle; some materials catalyze decomposition (e.g., hydrogen peroxide).
+
+Desirable Physical Properties:
+
+Low Freezing Point to allow cold environment operation.
+
+High Specific Gravity improves propellant mass per tank volume, reducing tank size and vehicle mass, positively impacting flight performance.
+
+Equations relate average specific gravity/density of bipropellant mixtures to fuel and oxidizer properties.
+
+Increasing propellant density increases mass flow and thrust.
+
+Cryogenic propellants (like LOX) have variable properties with temperature affecting performance.
+
+Stability: Propellants must not chemically decompose during storage/operation, even at elevated temperatures. Should be chemically inert with system materials and resist moisture or impurities. Deposits from coolant decomposition can reduce heat transfer and cause failures.
+
+Heat Transfer and Pumping Properties: High specific heat and thermal conductivity, low freezing point, and high boiling points are desirable for cooling. Low vapor pressures ease handling and pump design, reducing cavitation risk. High vapor pressure propellants require special materials and handling.
+
+Temperature Variation Effects: Physical properties (density, viscosity, vapor pressure) should vary minimally and similarly for fuel and oxidizer to ensure consistent engine calibration and performance. Temperature mismatches can alter mixture ratios and produce unwanted residues.
+
+Ignition and Combustion:
+
+Hypergolic Propellants ignite spontaneously on contact, simplifying ignition systems and reducing explosion risks.
+
+Non-hypergolic propellants require igniters for initial combustion energy, which should be minimal.
+
+Ignition delays increase at low temperatures.
+
+Combustion stability varies between propellant combinations, affecting desirability.
+
+Smoke and luminous exhaust may be problematic in military or sensitive applications due to detectability or interference.
+
+Consistency: Propellant batches must maintain consistent physical and chemical properties to ensure predictable engine performance.
+***************************************************************************************************************************************************************************
+7.2. LIQUID OXIDIZERS
+
+The most energetic known liquid oxidizer, producing the highest specific impulse and density, is liquid fluorine. Despite testing in experimental engines, it was abandoned due to extreme hazards. Other storable and cryogenic liquid oxidizers include mixtures of liquid oxygen and fluorine, oxygen difluoride (OF2), chlorine trifluoride (ClF3), and chlorine pentafluoride (ClF5), but none are currently used because of their toxicity and corrosiveness.
+
+Liquid Oxygen (LOX)
+Widely used as an oxidizer, LOX burns with a bright white-yellow flame with most hydrocarbon fuels and hydrogen. It is common in large rocket engines, e.g., Atlas V, Soyuz, Ariane V, and Delta IV. LOX supports and accelerates combustion, but is noncorrosive and nontoxic if containers are clean. Handling requires insulation to minimize evaporation losses and avoid frostbite. LOX evaporates quickly and is typically produced near its point of use by fractional distillation of liquid air. Pressurization before engine start keeps LOX cold and dense.
+
+Hydrogen Peroxide (H2O2)
+Used in highly concentrated form (70–98%), known as High-Test Peroxide (HTP). It decomposes catalytically into steam and oxygen, yielding a theoretical monopropellant Isp ~154 sec. It is hypergolic with hydrazine and burns well with kerosene as bipropellant. H2O2 is highly reactive and causes severe burns. Storage stability has improved with better materials and cleaning, extending shelf life from 3–4 years to 12–16 years. Usage declined due to decomposition and handling difficulties but recent advances renewed interest.
+
+Nitric Acid (HNO3)
+Various nitric acid mixtures, notably Red Fuming Nitric Acid (RFNA), were used between 1940–1965. RFNA contains dissolved nitrogen dioxide (5–27%) and is more energetic and stable than white fuming nitric acid. Storage requires special materials like stainless steel or gold. Inhibited RFNA (IRFNA) with fluoride ions reduces corrosion. Nitric acid reacts violently with many fuels and organic materials, causing spontaneous ignition. It is highly corrosive and toxic; vapor exposure limits are strict.
+
+Nitrogen Tetroxide (N2O4) – NTO
+Common storable oxidizer, hypergolic with hydrazine and derivatives (MMH, UDMH). Yellow-brown liquid, specific gravity ~1.44. Mildly corrosive when pure, forms strong acids in presence of moisture. Highly toxic NO2 fumes upon decomposition. Requires sealed heavy tanks due to high vapor pressure. Freezing point can be lowered by mixing with nitric oxide (NO) to form Mixed Oxides of Nitrogen (MON). Used in Russian engines, Space Shuttle systems, and many spacecraft thrusters. OSHA exposure limit is 5 ppm NO2.
+
+Nitrous Oxide (N2O)
+Known as “laughing gas,” used medically as anesthetic. Less potent oxidizer, supports combustion only at elevated temperatures. Much less toxic than N2O4, with a higher exposure limit. Decomposes into O2 and N2 with catalysts.
+
+---
+
+This summary covers the key properties, applications, handling precautions, and safety concerns of major liquid oxidizers used in rocketry.
+*******************************************************************************************************************************************************************************
+1. Liquid Oxygen (O₂)
+Molecule: O₂ (two oxygen atoms bonded)
+Function: Provides oxygen to burn the fuel (like hydrogen or kerosene).
+
+Molecular process:
+
+O₂ has a strong double bond but can split into two reactive oxygen atoms (O·).
+
+These oxygen atoms react with fuel molecules, for example hydrogen (H₂), to form water (H₂O):
+
+2
+𝐻
+2
++
+𝑂
+2
+→
+2
+𝐻
+2
+𝑂
++
+energy
+2H 
+2
+​
+ +O 
+2
+​
+ →2H 
+2
+​
+ O+energy
+Oxygen gains electrons (is reduced), hydrogen loses electrons (oxidized), releasing energy.
+
+Outcome: Energy release generates thrust.
+
+2. Hydrogen Peroxide (H₂O₂)
+Molecule: H₂O₂ (two hydrogens and two oxygens connected by an O–O bond)
+Function: Can act as oxidizer or monopropellant by decomposing to oxygen and steam.
+***************************************************************************************************************************************
+
+Molecular process:
+
+The O–O bond in H₂O₂ is weak and breaks in the presence of a catalyst (e.g., platinum):
+
+2
+𝐻
+2
+𝑂
+2
+→
+2
+𝐻
+2
+𝑂
++
+𝑂
+2
++
+energy
+2H 
+2
+​
+ O 
+2
+​
+ →2H 
+2
+​
+ O+O 
+2
+​
+ +energy
+Produces water vapor and oxygen gas.
+
+Released oxygen supports combustion or the hot gas expansion creates thrust alone.
+
+Outcome: Produces oxygen and steam to push the engine.
+
+3. Nitric Acid (HNO₃) and Red Fuming Nitric Acid (RFNA)
+Molecule: HNO₃ (one hydrogen, one nitrogen, three oxygens)
+Function: Acts as an oxidizer releasing oxygen and reactive nitrogen oxides.
+
+*************************************************************************************************************************************
+Molecular process:
+
+Nitric acid decomposes to nitrogen dioxide (NO₂), water, and oxygen:
+
+4
+𝐻
+𝑁
+𝑂
+3
+→
+4
+𝑁
+𝑂
+2
++
+2
+𝐻
+2
+𝑂
++
+𝑂
+2
+4HNO 
+3
+​
+ →4NO 
+2
+​
+ +2H 
+2
+​
+ O+O 
+2
+​
+ 
+NO₂ is reactive and helps oxidize the fuel.
+
+This can cause spontaneous ignition with certain fuels.
+
+Outcome: Releases oxygen and NO₂ to oxidize fuel and release energy.
+
+4. Dinitrogen Tetroxide (N₂O₄) / Nitrogen Dioxide (NO₂)
+Molecule: N₂O₄ (two nitrogen atoms and four oxygen atoms)
+Function: Strong oxidizer, dissociates into two NO₂ molecules.
+****************************************************************************************************************************
+
+Molecular process:
+Exists in equilibrium with:
+
+𝑁
+2
+𝑂
+4
+↔
+2
+𝑁
+𝑂
+2
+N 
+2
+​
+ O 
+4
+​
+ ↔2NO 
+2
+​
+**************************************************************************************************************************************
+ 
+NO₂ reacts spontaneously with fuels like hydrazine, igniting without external spark:
+
+𝑁
+2
+𝑂
+4
++
+hydrazine
+→
+combustion products
++
+energy
+N 
+2
+​
+ O 
+4
+​
+ +hydrazine→combustion products+energy
+NO₂ oxidizes nitrogen and hydrogen bonds in the fuel releasing heat.
+
+Outcome: Instantaneous and hypergolic combustion.
+
+5. Nitrous Oxide (N₂O)
+Molecule: N₂O (two nitrogens, one oxygen)
+Function: Weaker oxidizer, not flammable but supports combustion at high temperature.
+
+Molecular process:
+
+At high temperatures, decomposes into nitrogen (N₂) and oxygen (O₂):
+
+2
+𝑁
+2
+𝑂
+→
+2
+𝑁
+2
++
+𝑂
+2
+2N 
+2
+​
+ O→2N 
+2
+​
+ +O 
+2
+​
+ 
+Oxygen released supports burning of the fuel.
+
+Outcome: Controlled oxygen release for combustion.
+**************************************************************************************************************************************************************************
+O₂ splits into reactive oxygen atoms, producing reactive oxygen that burns fuel releasing energy.
+
+H₂O₂’s O–O bond breaks catalytically, producing H₂O and O₂, which creates steam and oxygen thrust.
+
+HNO₃ decomposes releasing NO₂ and O₂, where NO₂ oxidizes fuel and can cause spontaneous ignition.
+
+N₂O₄ exists in equilibrium with 2 NO₂ radicals; NO₂ is very reactive and causes hypergolic combustion.
+
+N₂O decomposes at high temperature into N₂ and O₂, with the oxygen supporting combustion.
+
+7.6 Safety and Environmental Concerns - Summary
+
+To minimize hazards related to reactive propellants, strict awareness of risks such as toxicity, explosiveness, fires, and spills is essential. Personnel handling propellants must receive specific safety training covering safe handling, potential environmental and equipment damage, and accident countermeasures. Use of safety equipment (e.g., protective clothing, face shields, toxic vapor detectors) is mandatory, along with health monitoring for those working near highly toxic materials.
+
+Rocket engines should be designed to reduce leaks, spills, and fires. Safety specialists usually review all safety aspects of testing, manufacturing, and operations. Unsafe practices must be thoroughly investigated, causes identified, and corrective actions promptly implemented.
+
+Environmental risks include toxic exhaust gases and liquid spills contaminating air, water, and soil. These discharges are regulated and require permits, with penalties for violations. Gelled propellants, which are safer due to their thick consistency, can reduce risks from accidents, though they are not yet widely used in production engines.
+
+With proper training, equipment, precautions, and design safety features, propellant handling can be conducted safely.
+***************************************************************************************************************************************************************************
+ Construction of an early regeneratively cooled tubular thrust chamber using
+ a kerosene-type fuel with liquid oxygen, as originally used in the Thor missile. The nozzle
+ throat inside diameter is about 15 in. The sea-level thrust was originally 120,000 lbf, but was
+ uprated to 135,000,then150,000,andfinallyto165,000 lbfbyincreasingtheflowandchamber
+ pressure and strengthening and modifying the hardware. The cone-shaped nozzle exit was
+ replaced by a bell-shaped nozzle exit.
+
+8.1. INJECTORS
+
+The various functions of fuel injectors are to introduce and meter liquid propellant flows into the combustion chamber, to break up liquid jets into small droplets (a process called atomization), and to distribute and mix the propellants so that the desired fuel and oxidizer mixture ratio results, with uniform propellant mass flow and composition across the chamber cross-section.
+
+There are two common design approaches for delivering propellants into the combustion chamber. Older designs used a set of propellant jets that passed through a multitude of holes on the injector face. Many rocket injectors developed in the United States employed this type for both large and small thrust chambers. Various hole arrangements are shown in Figure 8–3.
+
+The second design type uses individual cylindrical injection elements, which are inserted and fastened (welded, brazed, or soldered) into the injector face, and each element delivers a conically shaped spray of propellants into the combustion chamber. Figure 8–4 shows several common spray injection elements, producing conical propellant sheets either from slots or from the internal edges of a hollow cylinder within the element. This design has been widely used with liquid oxygen (LOX) and liquid hydrogen (LH₂) thrust chambers worldwide, including the Space Shuttle engines. It has also been the preferred approach in Russia, applied to most of their propellants and thrust chamber sizes. There are also other injector designs that combine jet and spray elements. Typical injector hole patterns are shown in Figures 8–1 and 8–5.
+
+Injector face patterns are closely linked to the internal manifolds or feed passages. These distribute propellants from inlets to injection holes or spray elements. A large, complex manifold volume allows for low passage velocities and proper distribution across the chamber cross-section. Smaller manifold volumes lead to lighter injectors, faster ignition starts, and reduced "dribble" (the flow that occurs after the main valves close). However, higher passage velocities often cause uneven flow through identical injector holes, leading to poor distribution and large local composition variations. Upon thrust termination, any propellant dribble results in after-burning—an inefficient, irregular combustion effect that causes a small amount of residual thrust (“cutoff” thrust). For applications requiring precise final vehicle velocity, this cutoff impulse must be very small and repeatable; often, valves are built into injectors to minimize propellant passage volumes.
+
+Doublet impinging-stream-type multiple-hole injectors are commonly used with oxygen–hydrocarbon and storable propellants, as shown in Figure 8–3. In "unlike" doublet patterns, fuel and oxidizer are injected through separate holes so that their streams impinge on one another. This impingement forms thin liquid fans, aiding in atomization and droplet distribution. Discharge coefficients for specific injector orifices are listed in Table 8–2.
+
+Impinging-hole injectors can also use like-on-like or self-impinging patterns (e.g., fuel-on-fuel and oxidizer-on-oxidizer). In these, two liquid streams form a fan which then breaks into droplets. Unlike doublets, they work best when the volumetric flow of fuel and oxidizer is about equal and when ignition delays are long enough to allow fan formation. For uneven flow rates, triplet patterns tend to be more effective.
+************************************************************************************************************************************************************************
+Non-impinging or showerhead injectors use propellant streams that emerge perpendicularly to the injector face. They rely on turbulence and diffusion to achieve mixing. The German V-2 rocket during World War II used this type of injector. However, these are no longer used, as they require relatively large chamber volumes for efficient combustion.
+
+Sheet or spray-type injectors produce cylindrical, conical, and other types of spray sheets, which intersect to promote mixing and atomization. See Figure 8–4. The resulting droplets then vaporize. Droplet size distributions from spray injection elements are generally more uniform than those from impinging streams.
+
+By adjusting internal dimensions of spray elements (such as the size or number of tangential feed holes, the length/protrusion of an internal cylinder, or the angle of an internal spiral rib), one can change the conical spray angle, the impingement location of fuel and oxidizer spray sheets, and affect mixture ratios, combustion efficiency, or stability. By varying the sheet widths (via an axially movable sleeve), it is possible to throttle propellant flows over a wide range without excessive reductions in injector pressure drop.
+
+This type of variable-area concentric tube injector was used in the descent engine of the Apollo Lunar Excursion Module, where it was throttled over a 10:1 flow range with minimal effects on mixture ratio or performance.
+************************************************************************************************************************************************************************
+-- INJECTOR FLOW CHARACTERISTICS --
+
+-- The injector plays a fundamental role in the design and operation of a rocket engine.
+
+-- AFFECTS:
+-- - atomization
+-- - combustion efficiency
+-- - heat transfer
+-- - transient behavior
+-- - stability
+
+-- DEPENDS ON:
+-- - propellants
+-- - injector geometry
+-- - thermodynamic and hydraulic characteristics
+
+-- MASS FLOW RATE:
+--   ṁ = F / c
+
+-- ORIFICE FLOW EQUATIONS:
+--   Q     = Cd * A * sqrt(2 * Δp / ρ)
+--   ṁ     = Cd * A * sqrt(2 * ρ * Δp)
+
+-- MIXTURE RATIO:
+--   r     = ṁ_o / ṁ_f
+--         = (Cd_o / Cd_f) * (A_o / A_f)
+--           * sqrt((ρ_o / ρ_f) * (Δp_o / Δp_f))
+
+-- INJECTION VELOCITY:
+--   v     = Q / A
+--         = Cd * sqrt(2 * Δp / ρ)
+
+-- MOMENTUM BALANCE / SHEET ANGLE:
+--   tan(δ) = (ṁ_o * v_o * sin(γ_o) - ṁ_f * v_f * sin(γ_f)) /
+--            (ṁ_o * v_o * cos(γ_o) + ṁ_f * v_f * cos(γ_f))
+
+-- ENGINEERING CONSIDERATIONS:
+-- - Δp is usually 20–30% of chamber pressure.
+-- - High Δp improves atomization but increases thermal load.
+-- - Injector spray angle affects wall impingement.
+-- - Symmetry and injector distribution affect stability and performance.
+*****************************************************************************************************************************************
+-- ROCKET ENGINE COMBUSTION CHAMBER DATA --
+
+-- GIVEN PARAMETERS:
+Chamber_Pressure                      = 68 MPa
+Chamber_Shape                         = Cylindrical
+Chamber_Inner_Diameter               = 0.270 m
+Chamber_Cylindrical_Length           = 0.500 m
+Nozzle_Convergent_Section_Angle      = 45 degrees
+Throat_Diameter                      = 0.050 m
+Wall_Curvature_Radius_at_Throat      = 0.050 m
+Injector_Face                         = Flat
+Avg_Chamber_Gas_Temperature          = 2800 K
+Avg_Chamber_Gas_Molecular_Weight     = 20 kg/kg-mol
+Specific_Heat_Ratio (γ)              = 1.20
+
+-- ASSUMPTION:
+-- Gas composition and temperature are uniform throughout the cylindrical chamber section.
+
+-- TASK 1:
+-- Determine approximate resonance frequencies for:
+--   - First longitudinal mode
+--   - First radial mode
+--   - First tangential mode
+
+-- TASK 2:
+-- Discuss how the three resonance frequencies change with:
+--   - Combustion temperature ↑
+--   - Chamber pressure ↑
+--   - Chamber length ↑
+--   - Chamber diameter ↑
+--   - Throat diameter ↑
+
+-- TASK 3:
+-- Explain why heat transfer increases during combustion instabilities.
+
+-- TASK 4:
+-- List steps to validate the stability of a new pressure-fed medium-sized liquid bipropellant rocket engine.
+-- Include all assumptions.
+
+-- TASK 5:
+-- Estimate the resonant frequency for a set of nine cavities (similar to Fig. 9–7):
+Chamber_Diameter       = 0.20 m
+Slot_Width             = 1.0 mm
+Cavity_Width           = 20.0 mm
+Cavity_Height          = 20.0 mm
+Wall_Thickness         = 10.0 mm
+Cavity_Length (L)      = 4.0 mm
+ΔL                     = 2.0 mm
+Speed_of_Sound (a)     = 1050 m/s
+**********************************************************************************************************************************************
+ Inertial upper-stage (IUS) Orbus rocket motor with an extendible exit cone
+ (EEC). This motorwasusedforpropelling upper launch vehicle stages or spacecraft. The grain
+ was simple (internal tube perforation). With the EEC and a thrust vector control, the motor had
+ a propellant mass fraction of 0.916. When launched, and while the two lower vehicle stages
+ wereoperating, thetwoconicalmovablenozzlesegmentswerestowedaroundthesmallerinner
+ nozzle segment. Each of the movable segments was then deployed in space and moved into
+ its operating position by three rotary actuators. The nozzle area ratio increased from 49.3 to
+ 181; overall this improved the specific impulse by about 14 sec. This motor (without the EEC)
+****************************************************************************************************************************************************
+nozzles  About 80 years ago nozzles were manufactured from a single piece of molded
+polycrystalline graphite and some were supported by metal housing structures.
+
+They eroded easily, but were low in cost. We still use them today for short duration,
+low chamber pressure, low altitude flight applications with low thrust, such as in certain tactical missiles. For more severe conditions a throat insert or ITE is
+placed into the graphite piece; this insert is a denser, better grade of graphite; later pyrolytic graphite washers and fiber-reinforced carbon materials came into use.
+
+Figure 15–7 shows a set of non-isotropic pyrolytic graphite washer in the throat insert of small nozzles (they are not used now). For a period of time tungsten inserts were used; they had very good erosion resistance, but were heavy and their melting point was eventually exceeded as higher motor pressures and hotter
+propellants came into use. The introduction of high-strength carbon fibers in a carbon matrix has been a major advance in high-temperature materials. For small
+and medium-sized nozzles, ITE pieces have been made of carbon–carbon, the present abbreviation for carbon fibers in a carbon matrix (see Ref. 15–12). 
+
+The orientation of the fibers can be two-directional (2D) or three-directional (3D), as
+described below. Some properties of these materials are listed in Tables 15–4 and
+15–5. For large nozzles the then existing technology did not allow the fabrication
+of large 3D carbon–carbon ITE pieces, so layups of carbon fiber (or silicon fiber)
+cloth in a phenolic matrix were used. An example of a self-supporting ablative exit
+cone is the Naxeco-phenolic structure used in the first stage of the Vega launch
+vehicle (Ref. 15–13).
+****************************************************************************************************************************************
+Typical Motor Nozzle Materials and Their Functions
+
+For structural support and pressure containment (often referred to as the motor housing), aluminum is sometimes used, though it is limited to temperatures of about 515 °C (959 °F). In more demanding environments, low-carbon steels, high-strength steels, and special alloys are preferred. These materials perform well within temperature ranges between 625 and 1200 °C (1157 to 2192 °F), depending on the specific alloy used. They offer good strength and rigidity.
+
+In areas of the nozzle exposed to extreme heat and high-velocity gas, such as the throat and inlet sections, carbon–carbon composites are commonly used. These materials are constructed using 3D or 4D interwoven carbon filaments, which makes them extremely strong and heat-resistant, withstanding temperatures up to 3300 °C (5972 °F). However, they are expensive and somewhat limited in application due to their cost.
+
+For insulation, located behind heat sinks or flame barriers and not directly exposed to hot flowing gases, carbon or Kevlar fiber cloth impregnated with phenolic or plastic resins is used. These are commonly selected for nozzles with large throats. Another option in this category is molded graphite, which is a cost-effective solution suitable for use in low-pressure, low-temperature chambers. Additionally, materials such as tungsten and molybdenum have been employed for insulation purposes. These metals offer excellent erosion resistance but are heavy and expensive, and thus are rarely used today.
+
+For flame barriers, which are directly exposed to hot, low-velocity gases, ablative plastics filled with materials such as silica or Kevlar, often combined with phenolic resins, are common. These ablative layers offer low thermal conductivity, strong adhesion, and ruggedness, and are often applied as filament-wound or bonded layers.
+
+At the nozzle exit cone, several materials are employed depending on cost and performance needs. One option is ablative plastics, similar to those used for insulation but with less filler, making them more erosion-resistant and cheaper than carbon–carbon. Another option includes carbon or silica fibers combined with phenolic resin, often in the form of woven or glued layups.
+
+Carbon–carbon is also used in exit cones, especially where higher temperature resistance is needed. These components are often 3D-woven or layered, providing high thermal resilience. In some designs, self-supporting ablative plastics or ablatives combined with metal or structural plastic supports are used. These are generally heavier and have limited duration, but are sometimes acceptable for short-burn applications.
+
+In certain high-performance or extended-mission applications, refractory metals like niobium alloy (Cb-103), tantalum (Ta), and molybdenum (Mo) are used. These metals are strong but heavy, and typically require coatings to resist oxidation. When designed for radiation cooling, carbon–carbon materials can also be used, offering high strength even though they are naturally porou
+*****************************************************************************************************************************************************************************
+ Carbon–carbon materials are made from carefully oriented sets of carbon fibers
+ (woven, knitted, threaded, needled, or laid up in patterns) in a carbon matrix.
+ 
+Two-directional (2D) materials have fibers in two directions, 3D have fibers oriented
+ in three directions (usually at right angle to each other), and 4D has fibers oriented in
+ one of twoways,often called “tetrahedral” and “hexagonal” (Ref.15-14). In the tetra
+hedral construction, the carbon bundles are the same diameter in all four directions
+ represented by the four diagonals of a cube. In the hexagonal construction, three of
+ the four directions of reinforcement are in a plane perpendicular to the axial direction.
+ The three directions of yarn bundles in the perpendicular plane are at 60∘ to each
+ other and are usually smaller in diameter. 
+
+Highly densified materials are superior in high heat transfer regions, such as the throat. Multidirectional fiber reinforcements
+ allow them to better withstand the high thermal stresses introduced by the steep temperature gradients within the component. There are two methods in use for matrix
+ deposition: chemical vapor deposition (CVD) and liquid impregnation followed by
+ further pyrolyzation. Carbon-carbon densification is discussed in Ref. 15–9.
+
+ The French (Herakles) Naxeco Sepcarb carbon-carbon and the Naxeco 3-D
+ reinforced phenolic materials are presently in production and have flown in Vega
+ launches. Carbon-silicon carbide and refractory metal nozzle components have reached production in the last decade.
+ 
+Ablative Materials. These commonly used materials in rocket motors nozzles are also used in some insulators. They are usually made from a composite material with
+ high-temperature organic or inorganic high-strength fibers, namely, high silica glass, aramids (Kevlar), or carbon fibers, impregnated with organic plastic materials such
+ as phenolic or epoxy resins. The fibers may be individual strands or bands (applied in a geometric pattern on a winding machine), or come as a woven cloth or ribbon,
+ all impregnated with resin.
+
+IGNITER HARDWARE
+ The process of ignition is described in Section 14.2 and in Section 13.5 some propel
+lants used in igniters are mentioned. In this section we discuss specific igniter types,
+ their locations, and their hardware (see Ref. 15–15).
+ Since igniter propellant mass is small (often less than 1% of the motor propellant)
+ and burns mostly at low chamber pressure (hence low Is), it has a negligible contribu
+tion to the motor’s overall total impulse. It is the designer’s aim to reduce the igniter
+ propellant mass and the igniter inert hardware mass to a minimum—just big enough
+ to assure ignition of the grain under all operating conditions.
+ Figure 15–13 shows several proven locations for the igniter. When mounted at
+ the forward end, the gas flow over the propellant surface helps to achieve ignition.
+
+ Pyrotechnic Igniters
+ In industrial practice, pyrotechnic igniters are defined as igniters (other than
+ pyrogen-type igniters) that use solid explosives or energetic propellant-like chemical
+ formulations (usually small pellets of propellant that provide large burning surfaces
+ and short burning times) as the heat-producing materials. This definition fits a wide
+ variety of designs, known in the trade as bag and carbon igniters, powder can, plastic
+ case, pellet basket, perforated tube, combustible case, jellyroll, string, or sheet
+ igniters. A common pellet-basket design is shown in Fig. 15–14, being typical of the
+ pyrotechnic igniters. Ignition of the main charge (in this case pellets consisting of
+ 24%boron–71% potassium perchlorate–5% binder) is accomplished by stages; first,
+ on receipt of an electrical signal the initiator releases the energy of a small amount
+ of sensitive powdered pyrotechnic housed within the initiator, commonly called the
+ squib or the primer charge; next, the booster charge is ignited by heat released from
+ the squib; and finally, the main ignition charge propellants are ignited
+************************************************************************************************************************************************************************
+Pyrogen Igniters
+ A pyrogen igniter is basically a small unit, containing all the elements of a rocket
+ motor, used to ignite a larger rocket motor, see Ref. 15–11, and is not designed
+ to produce thrust. They all consist of one or more nozzle orifices (both sonic
+ and supersonic types) and most use conventional rocket motor grain formulations
+ (sometimes the same as the main propellant grain) and design technology. Heat
+ transfer from the pyrogen gas to the motor grain is largely convective, with hot gases
+ contacting the inner grain surface, in contrast to pyrotechnic igniters that transfer
+ heat by high-energy radiation. Figures 12–1, 12–2, and 12–20 illustrate rocket
+ motors with a typical pyrogen igniter; in Fig. 18–5 the igniter has three nozzles and a
+ cylindrical grain with high-burn-rate propellant. For pyrogen igniters, initiator and
+ booster charge designs are often very similar to those used in pyrotechnic igniters.
+ Reaction products from the main charge impinge on the inside surface of the rocket
+ motor grain, producing motor ignition. Common practice on very large motors is
+ to mount them externally, with the pyrogen igniter pointing its jet up through the
+ large motor nozzle, in which case the igniter becomes a piece of ground-support
+ equipment.
+************************************************************************************************************************************************************************
+Electric initiators in motor igniters are also called squibs, glow plugs, primers, and
+ headers; they always constitute the initial element in the ignition train and, if properly
+ designed, can act as a safeguard against unintended ignition. Three typical designs
+ of initiators are shown in Fig. 15–15. Both (a) and (b) types form structurally a part
+ of the rocket motor case and generically act as headers. In the integral diaphragm
+ type (a), the initial ignition energy is passed in the form of a shock wave through the
+ diaphragm activating the acceptor charge, with the diaphragm remaining integral.
+ The same principle is also used to transmit shock waves through metal case walls
+ or metal inserts in filament-wound cases; here, the combustion case would not need
+ to be penetrated and can remain sealed. The header in type (b) resembles a simple
+ glow plug with two high-resistance bridgewires buried in the initiator propellant
+ charge. The design in type (c) employs a small bridgewire (0.02 to 0.10 mm) of
+ low-resistance material, usually platinum or gold, that explodes by the application
+ of a high-voltage discharge
+**************************************************************************************************************************************************************************
+Igniter Analysis and Design
+ The basics of initiating ignition are common to all designs and applications of
+ pyrotechnic and pyrogen igniters. In general, current analytical models of physical
+ and chemical processes relevant to igniter design (including heat transfer, propellant
+ decomposition, deflagration, flame spreading, and chamber filling) are far from
+ complete and accurate. See Chapter 5 by Hermance and Chapter 6 by Kumar and
+ Kuo in Ref. 14–1, and Ref. 15–15. Analyses and design of igniters, regardless of
+ the type, depend heavily on experimental results. When data on past successes and
+ failures with full-scale motors is included, the effects of some important parameters
+ have become quite predictable. For example, Fig. 15–16 can be useful in estimating
+ the mass of the igniter main charge for rocket motors of various sizes (i.e., motor
+ free volumes). 
+
+From these data,
+ m=0.12(VF)0.7
+ (15–4)
+
+ where mis the igniter charge mass in grams and VF is the motor free volume in cubic
+ inches (the void in the case not occupied by propellant). A larger igniter mass flow
+ means a shorter ignition delay. Ignition time events are shown in Fig.14-3.
+***************************************************************************************************************************************************************************
+Thisexamplegivesoneparticularmethodfordeterminingkeydesignparam
+eters of a solid rocket motor that uses a composite propellant. These results may then be used
+ as the basis for preliminary design. The rocket is to be launched at altitude and it will fly at
+ constant altitude. The following data are given:
+ Specific impulse (actual)
+ Burning rate
+ Propellant density
+ Specific heat ratio
+ Chamber pressure, nominal
+ Desired average thrust
+ Maximum vehicle diameter
+ Desired burn duration
+ Ambient pressure
+ Vehicle payload
+ Is = 240 sec at altitude and with p1 =1000 psia
+ r =0.8 in./sec at 1000 psia and 60 ∘F grain temperature
+ 𝜌b = 0.066 lbm/in.3
+ k =1.25
+ p1 = 1000 psi
+ F =20, 000 lbf (at altitude)
+ D=16in.
+ tb = 5.0 sec
+ 3.0 psi (at altitude)
+ 5010 lbm (includes structure, controls, power supply)
+**************************************************************************************************************************
+ Lengthofcylindricalportion 370mm
+ Outsidecylinderdiameter 200mm
+ Internalpressure 6MPa
+ Webfraction 0.52
+ Insulatorthickness(average)
+ formetalcase 1.2mm
+ forreinforcedplasticcase 3.0mm
+ Volumetricpropellantloading 88%
+ Propellantspecificgravity 1.80
+ Specificimpulse(actual) 248sec
+ Nozzleigniterandmountingprovisions 0.20kg
+************************************************************************************************************************************
+Type Metal ReinforcedPlastic
+ Material D6aC Organicfilamentcomposite(Kevlar)
+ Physicalproperties SeeTable15-2 SeeTable15-2
+ Poissonratio 0.27 0.38
+ Coefficientofthermal
+ expansions,m/m-K×10−6
+ 8 45
+ Outsidediameter(m) 0.30 0.30
+ Lengthofcylindricalsection(m) 0.48 0.48
+ Hemisphericalends
+ Nozzleflangediameter(m) 0.16 0.16
+ Averagetemperatureriseofcase
+ materialduringoperation( ∘F)
+ 55 4
