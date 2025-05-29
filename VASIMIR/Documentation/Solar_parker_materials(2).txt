@@ -1,0 +1,508 @@
+[2:04, 21/5/2025] victoralonsogarcia8: 
+Jet Engine Components
+1. Diffuser: Slows down airflow and increases pressure.
+2. Compressor: Increases air pressure through energy transfer from turbine.
+3. Combustion Chamber: Where air and fuel combustion occurs.
+4. Turbine: Converts thermal energy into mechanical energy to drive compressor.
+5. Nozzle: Accelerates exhaust gases to generate thrust.
+
+Spacecraft Components
+1. Jet Engines: Provide necessary thrust for flight.
+2. Fuel System: Stores and supplies fuel to engines.
+3. Control System: Regulates engine and spacecraft operation.
+
+Plasma and Black Hole Metrics
+1. Frolov Metrics: Describe spacetime geometry near black holes.
+2. Schwarzschild Metrics: Describe spacetime geometry near spherical black holes.
+3. Kerr Metrics: Describe spacetime geometry near rotating black holes.
+
+Turbine and Nozzle Design
+1. Turbine Design: Uses computer-aided design (CAD) software to create turbine models.
+2. Nozzle Design: Uses computer-aided design (CAD) software to create nozzle models.
+
+Propulsion Materials and Systems
+1. Propulsion Materials: Fuels and oxidizers used to generate thrust.
+2. Plasma Propulsion: Uses plasma energy to generate thrust.
+
+Black Hole Research
+1. Black Hole Symmetries: Studies spacetime symmetries near black holes.
+2. Plasma Tensor Converter: Used to study plasma interaction with black hole gravitational fields.
+[2:06, 21/5/2025] victoralonsogarcia8: Hazme UN resumen de esto para UN diseño o proyecto, materiales resistentes a la radiacion en inglés del solar parker probe. Y calculos del motor Todo en inglés **SOLARPARKERPROBE_MATERIALS(II)
+
+ 9.17. A centrifugal compressor has inlet velocities:
+ C1 ¼ 150 m=s, W1 ¼ 250 m=s, U1 ¼ 200 m=s
+ and outlet velocities of:
+ C2 ¼ 390 m=s, W2 ¼ 150 m=s, U2 ¼ 350 m=s;
+ The blade angle at impeller tip with the radial direction β2
+ 0 ¼ β2 þ 5 , where
+ β2 is the flow angle measured from the radial direction.
+ (a) What is the type of impeller? (forward– radial– backward)
+ (b) Calculate the slip factor
+ (c) Calculate the stage temperature rise
+ 9.18 Theshownfigureillustrates a Turboprop engine where the compressor section
+ is composed of twocentrifugal compressors. Air enters both stages in the axial
+ direction, where C1¼C3
+ Data for the first stage:
+ T01 ¼ 288K, P01 ¼ 101kPa, π1 ¼3, σ1 ¼0:94, η1 ¼0:86;
+ ψ1 ¼1:04, D1t ¼ 0:5m, D2 ¼0:8m, ξinlet ¼ 0:65, M1rel
+ ð Þtip¼1:0
+
+
+ Calculate:
+ 1.Airmassflowrate
+ 2. InletvelocityC1
+ 3.Rotationalspeed(s 1)
+ 4. Powerrequiredfordrivingthecompressor
+ Foranaxialcompressorstage,provethat
+ tanα1¼ 1 Λ ð Þ ψ=2 ð Þ
+ ϕ
+ tanα2¼ 1 Λ ð Þþψ=2 ð Þ
+ ϕ
+ tanβ1¼Λþψ=2 ð Þ
+ ϕ
+ tanβ1¼Λ ψ=2 ð Þ
+ ϕ
+ Foranaxialcompressorstage,provethat
+ C1
+ U
+ 2
+ ¼ 1 Λ ð Þ ψ=2 ð Þ ð Þ2þϕ2
+ C2
+ U
+ 2
+ ¼ 1 Λ ð Þþψ=2 ð Þ ð Þ2þϕ2
+ W1
+ U
+ 2
+ ¼ ψ
+ 2 þΛ 2
+ þϕ2
+ W2
+ U
+ 2
+ ¼ ψ
+ 2 Λ 2
+ þϕ2
+ 9.19ForanaxialcompressorstagehavingCa1¼Ca2 andU1¼U2:Provethatthe
+ degreeofreactionisexpressedbytherelation:
+ Λ¼1 ϕ
+ 2
+ A2sec2α2 sec2α1
+ ABtanα2 tanα1
+ 9.5 Closure 831
+832
+ U
+ 9 Centrifugal and Axial Compressors
+ where ϕ ¼
+ Ca1
+ U1 
+,A ¼
+ Ca2
+ Ca1 
+and B¼
+ 2
+ U1
+ The stage temperature rise of an axial compressor stage (ΔT0axial) and a
+ centrifugal compressor stage (ΔT0centrifugal) are to be compared provided the
+ following conditions:
+ Flow enters axially for both stages
+ Degree of reaction of axial compressor at mean radius Λm¼0.5
+ Product of power input factor and slip factor for centrifugal compressor
+ ψσ¼1.0
+ Prove that (ΔT0axial)/(ΔT0centrifugal) ¼ (Um/U2)2
+ where (Um) is the rotational speed at mean radius of axial compressor and
+ (U2) is the rotational speed at impeller tip radius of centrifugal compressor.
+ If the rotational speed is the same for both compressor stages, then the
+ temperature rise ratio will be
+ ΔT0 axial
+ ð Þ=ΔT0centrifugal ¼ rm=r2
+ ð Þ
+
+MATERIALS SOLAR PARKER:
+NASA selected instrument suites 
+* 685kg max launch wet mass 
+* Reference Dimensions: – S/C height: 3m  – TPS max diameter:2.3m  – S/C bus diameter: 1m  
+* C-C Thermal protection system 
+* Hexagonal prism s/c bus configuration 
+* Active, water cooled solar arrays (SA) – 364W (TBR) electrical power at 
+encounter – Solar array total area: 1.54m2 – Radiator area under TPS: 4.0m2  
+* 0.6m HGA, 34W TWTA Ka-band 
+science DL 
+* Science downlink rate: 163kb/s (TBR) 
+4 
+at 1AU  
+Concentrated heat loading requires  
+active solar array  thermal control 
+Thermal & Fluids Analysis Workshop August 20-24, 
+2018 
+5 
+Solar Array Cooling System (SACS) – PSP liquid cooling system dissipates high solar flux absorbed 
+by solar array during closest approach to sun 
+* Designed for 6400 W cooling system 
+capacity at 9.86Rs – Water pumped through solar array wings into cooling system 
+primary radiators (CSPR) to dissipate heat. – Single loop, redundant pump and control electronics – Cooling system operating temperature determined by solar 
+distance, spacecraft pointing, solar array angle, pump speed (2 
+speed)  
+* Operating temp: +20C to +150C 
+* Survival temp:  +10C to +190C 
+* Survival dry: platen: -80C, CSPR: -130C  – Thermal design drivers 
+Hot (SS)  
+Cold (SS)  – 9.86Rs – max cooling system load (4AR)  – Communication 45deg slews (4AR) – 0.82 AU Umbra (4AR) / 1.02AU (2AR & 
+4AR) 
+Cold (Tran) – Venus eclipse – Launch, post launch activation – R23 Activation (L+41) 
+Flow Direction 
+Secondary 
+Solar array 
+(High Flux) 
+Thermal & Fluids Analysis Workshop August 20-24, 
+2018 
+Primary 
+Solar array 
+(Low Flux) 
+6 
+SACS Activation and Operation 
+ Launch to Cooling System Activation ~two hours 
+total: 
+ Before launch, water in the accumulator is heated by an 
+external UGSE heater to a temperature between 40°C 
+to 50°C to overcome any cold spots in the radiators 
+and tubing and assure the system does not freeze when 
+it is initially wetted 
+ Activation of cooling system radiators 2 and 3 
+occurs at solar distance 0.89-0.9AU (~Day 41 / 
+Launch Correction Maneuver completed) 
+ Spacecraft slew to “Activate 2&3” pointing orientation 
+ Radiator 2&3 warm up to 20C prior to opening valves to flow 
+water through radiators 2&3 
+ Ground command sequence 
+Key System Components 
+* Accumulator – not redundant  
+* Pump and Pump Electronics – block redundant 
+* Solar Array Platens/Cold Plates – not redundant 
+* Radiators – not redundant 
+* Isolation Valves – electrically redundant/cross strappe
+ • Delta Pressure Sensors – redundant/cross strapped 
+Thermal & Fluids Analysis Workshop August 20-24, 
+2018 
+7 
+Design Verification 
+* During ITVT, the thermal performance of the SACS was evaluated using test configuration 1 (C-1) (test 
+platens installed/total system AE) and test configuration 2 (C-2) (test platens removed), which were designed 
+to bracket the entire mission phases expected during flight, including the critical transients. 
+* C-1 Cold Case A2: Measure Steady Temperature with two radiators active and compare against 
+expected heat loading 933 W  to verify fin blanketing and to determine if additional mli is needed.  
+This configuration dictates fin mli sizing due to expected worst case SA waste heat at 1.02 AU (933 
+W) 
+* C-1 Cold Case B2: Measure Steady Power at 15 C with four radiators active with fin mli in place.  
+This case determines the minimum four active radiator heat load and quantifies R23 slewing during 
+flight operations 
+* C-1 Hot Case B6  (No TPS): Quantify SACS EOL capacity at 125 C with fin MLI in place.  Defines 
+the new required capacity (spec/no fin mli is 6400 W) 
+* C-2 Hot Case B6 (No TPS): Quantify the SACS power at 125 C without patens 
+* C-2 Hot Case C6 (TPS @ 300 C): Quantify the SACS power at 125 C. The difference from the 
+previous case is the TPS loading into the SACS 
+* C-1 Critical transient simulation Cases A0, B01, B02: Post launch warm up, R23 activation and 
+Venus eclipse.  All used as predicted worst case  heat loads  
+* Intermediate C-1 & C-2 cases were used to provide SACS hydraulic system performance over temperature, 
+flow rate and active radiator configuration, and provide temperature and power data for the thermal model 
+correlation 
+* Testing verified the thermal performance of the SACS during steady-state and critical transient operational 
+scenarios. The testing also directly measured the heat flow from the TPS into the SACS radiators and into 
+the spacecraft top deck (via the spacecraft simulator)  
+Thermal & Fluids Analysis Workshop August 20-24, 
+2018 
+8 
+Test Profiles 
+* The flight configuration, C-1, was used to verify critical thermal requirements and characterize system 
+performance as a function of temperature and water flow rate for both the two and four active radiator 
+configurations with the equivalent of two radiator fins per radiator blanketed on radiators 1 and 4. This 
+configuration was also used to demonstrate solar-array-related autonomy responses to heat flux and 
+verify acceptable performance during the critical transients. 
+* The non-flight autonomy and fault protection configuration, C-2, represents the configuration that was 
+used during observatory testing to allow free motion of the solar-array gimbals to verify fault protection 
+and solar array safing response to anomalous thermal conditions that were simulated during test. The 
+data gathered during ITVT was used to help set the operating SACS parameters.  All SACS thermal 
+control (heating) was done using the four radiators in a symmetric manor.
+
+ The ITVT article consisted of both actual flight and non-flight hardware elements. Actual flight 
+hardware evaluated during the ground test consisted of the radiators, the radiator heaters (included 
+for the ground test but not used in flight), the TSA, and the cooling water supply system.  
+* Electric heaters were used to emulate various PSP mission environments. These heaters were 
+energized by a combination of high-power (100 V/50 A) and low-power (60 V/5 A) supplies. Low
+power heaters were used to provide energy to the radiator panels, the spacecraft simulator, the 
+solar-array boom heater, the plumbing electronics box, and the water connection lines. A 
+combination of low- and high-power heaters were used to warm the platens.  
+* Additionally, high-power heaters were used to provide energy to the TPS thermal simulator. The 
+TPS thermal simulator provided back-side temperatures in the range of 300°C to 350°C.  
+
+To properly simulate the high-intensity solar load experienced by the flight solar arrays, the test platens were heated 
+using a combination of ceramic heaters in high-heat-flux areas (the angled platen areas) and Kapton heaters in low
+heat-flux regions  
+* The test and flight solar-array platens are fabricated from diffusion bonded CP Grade-4 titanium and utilize identical 
+internal mini-channels geometry to collect the waste heat from the solar cells (or heaters). The mini-channel design is 
+different for the secondary and primary segments to minimize pressure drop during maximum flow.  
+* The short secondary segment (254 mm in length) uses a small-diameter densely packed mini-channel design that 
+efficiently removes the waste heat when at the highest flux; however, this comes with a pressure-drop penalty. To 
+reduce the pressure-drop penalty, the primary segment (864 mm in length) transitions to a larger-diameter mini
+channel design, in the region of the plane change, because the heat flux profile is very benign and the pressure drop 
+would be more substantial due to the greater length.  
+* For transient considerations, the mass of the test platens matches the as-built mass of the flight solar arrays to within 
+1%.  As reference, the test and flight platens are uniform in width, measuring 635 mm and 686 mm, respectively, and 
+both are 1118 mm in length.  
+
+*************************************************
+ Approximately 90” in diameter, the flight TPS points toward the sun during closest solar 
+approach, and shields the spacecraft bus from direct solar impingement.  
+* In flight the top (i.e., sun-facing) surface of the TPS is predicted to reach temperatures in 
+excess of 1200°C. The bottom (i.e., bus-facing) surface of the TPS is predicted to reach 
+temperatures near 300°C, creating an important source of incident infrared heating on 
+the bus.  
+* The thermal simulator was designed to provide the critical environments expected 
+during flight  when the TPS is both hot and cold.   
+* Heat back loading into both the SACS and bus were quantified during the ITVT and was 
+repeated during final spacecraft thermal vacuum testing , verifying that the spacecraft 
+thermal design could manage infrared heat load.  
+************************************************
+ The spacecraft simulator utilized two plates, with ten Kapton heaters per plate to measure 
+the heat leak into the simulated spacecraft bus from the SACS and TPS simulator.  
+* The simulated spacecraft boundary condition of 20°C was held for both test configurations 
+(C-1 or C-2), and the power needed to maintain this temperature setting was measured.  
+* As the SACS and TPS simulator warmed, the conducted and radiated heat caused the input 
+power needed by the spacecraft simulator to decrease.  
+* Delta changes in control heater power needed to maintain 20°C on the plates provided 
+direct measurements of heat flow into the underlying structure.  
+*************************************************
+ C-1 Cold Case A2: From the results, for 934 W of thermal input, the SACS water 
+temperature was measured to be 14°C. Because the desired water temperature is~18°C 
+with 933 W of thermal input, the MLI coverage will be increased to 0.63 m2 based on the 
+correlated thermal model 
+* C-1 Cold Case B2: From the results , for 1720 W of thermal input, the SACS water 
+temperature was measured to be 19°C  
+* C-1 Hot Case B6  (No TPS): From the results, for 6153 W of thermal input, the SACS water 
+temperature was measured to be 125°C (spec/no fin mli is 6400 W) and pre-test  budget 
+carried 5900 W as the max capacity 
+* C-2 Hot Case B6 (No TPS): 4612 W / 125 C SACS 
+* C-2 Hot Case C6 (TPS @ 300 C): 4037 W / 124 C SACS (300 C TPS simulator); Heat flow 
+into SACS from TPS measured to be 575 W (533 W estimated in the budget) 
+* C-1 Critical transient simulation Cases A0, B01, B02: All critical transients were nominal 
+and without any issues.
+************************************************
+ During C-1/B6, it was very apparent that the heat from the SACS into the spacecraft 
+simulator with the SACS at 125°C was much higher than expected. Upon analysis 
+of the test data, the effective leak into the spacecraft simulator was measured to be 
+grossly 100 W, approximately three times greater than that expected from the 
+pretest thermal modeling. 
+* It was determined that the majority of the unexpected heat leak was due to much 
+higher thermal conductivity in the component mounting hardware, which, in turn, 
+caused the underside of the top deck to become considerably warmer and radiate 
+three times the expected heat into the spacecraft simulator. 
+* The design fix, successfully verified during observatory-level thermal vacuum 
+testing, was to add an MLI blanket between the underside SACS components 
+(keeping them radiation coupled to the internal spacecraft) and the underside of 
+the top deck to isolate the top deck from the inside of the spacecraft.  
+* Black Kapton tape was also added to the underside components to increase the 
+surface emissivity and help with thermally coupling these components to the 
+spacecraft bulk temperature
+**************************************************
+ Thermal model built for the ITVT TVAC test configurations – Run with (Configuration 1) and without (Configuration2) platens – Radiators 1,4 have 5” tall MLI blankets as shown – After some adjustment, model shows good correlation to test data 
+* Thermal model modified to represent flight-like configuration and run to 
+generate flight predicts – Platens rotated toward the SC for hot cases – Parameters adjusted from the test model as shown in the table 
+below (mainly for flight platens, and space boundary T) – Radiator blockage blankets adjusted to 6” tall
+*********************************************************
+ Initial thermal model runs showed 
+marginal agreement, but over-predicted 
+water temperatures for the test power 
+input over all cases – Configuration 1: 4 °C – Configuration 2: 8 °C 
+* Adjustments were made to the thermal 
+model to better represent the test 
+parameters – Increased platen thermal nodes from 1 to 22, 
+with water node under each – Input power to the radiator fins adjusted to 
+account for fin efficiency effects of adding 
+heat to the edges of the radiator fins 
+* Verified with detailed fin model, indicating loss 
+of efficiency due to non-uniform temperature 
+across the fin
+*********************************************************
+MATERIALS:
+The primary requirement of the Solar Array Cooling System 
+(SACS) is to provide SA cooling from 9.86 RS to 1.02-AU 
+solar distances. 
+ The system will provide this cooling with an operating fluid 
+(deionized water) temperature of +10°C (test minimum) to 
++150°C (test maximum/platen) depending on heat load and 
+mission timeline. 
+ The system is designed for a survival fluid temperature of 
++200°C.
+ 
+ A custom-designed accumulator is used to store the water 
+from launch until initial system activation (~90 minutes after 
+launch) as well as maintain a pressure cap on the system to 
+prevent boiling for temperatures up to 210°C.
+  The major components of the SACS are the four custom
+designed CSPRs, two diffusion bonded SAPs, and the 
+SACS flight components located on both sides of the 
+spacecraft top deck. 
+ The SACS top-deck components consist of a redundant 
+pump package, total and redundant delta pressure 
+transducers, three latching valves, and the accumulator. 
+ The three latching valves allow for the initial system 
+activation and the strategic wetting of the final two 
+radiators.
+*******************************************************
+PSP was designed to maintain the SACS water temperature 
+above its freezing temperature during the period between 
+launch and SA wings deployment by launching the system dry 
+and strategically activating the system as heat load became 
+available and launch correction attitude uncertainty was 
+ 
+reduced. 
+ All the SACS water was stored in the accumulator, which is 
+mounted on the underside of the PSP top deck. Utilizing Delta 
+IV ground support equipment umbilical power, accumulator 
+heaters, and thermostats, the water temperature was 
+controlled between +45°C and +50°C before launch to 
+overcome any cold spots in the inlet/outlet tubing when the 
+system is initially activated after launch. 
+ Approximately 90 minutes after launch and 45 minutes in 
+CSPR14 activation attitude, the temperatures of the SAPs and 
+CSPRs were verified as acceptable, and the water was released 
+from the accumulator, wetting the SAPs, CSPR1 and CSPR4, 
+and the pump. 
+ At this solar distance (~1.02 AU), the solar load is not high 
+enough to maintain the SACS temperature at the safe level if 
+the water were released to all four CSPRs, which is why only 
+two of the four CSPRs are flooded at this stage.
+  Thirty-three days later when the spacecraft reached 0.90 AU, 
+the spacecraft was slewed to −X to the sun, and the final SACS 
+activation was successfully executed with the wetting of 
+CSPR2 and CSPR3. 
+ Shown are the CSPR temperatures as measured by the 32 
+temperature PT103 temperature sensors (eight per radiator) 
+during the two activation events. The thermal “spike” at the 
+beginning of each CSPR activation represents the orientation 
+illustrated
+********************************************************
+The SACS was comprehensively calibrated over the 
+operating temperature range (referenced at the pump CV) 
+as a function of input power during the integrated 
+thermal vacuum test (ITVT) in March 2017.
+  The SACS thermal model developed for the ITVT was 
+correlated against the test data and was used and 
+adjusted during observatory thermal vacuum test in early 
+2018. 
+ Prior to wetting CSPR2 and CSPR3, the SACS heat load 
+based on the measured pump check valve (CV) 
+temperature, 70°C, was estimated to be 1900 W using the 
+correlated (flight) SACS thermal model.
+  Three days later, the umbra test was performed, where 
+the heat load from the recently wetted CSPR2/CSPR3 
+was reduced to zero due to the umbra attitude, and the 
+heat load to the SACS came exclusively through the SAs.
+  Correcting for the decrease in solar distance, the 1900 W 
+predicted on 14 September 2018 (0.90 AU) became 2033 
+W (0.87 AU). After approximately 3 hours in umbra 
+attitude, the measured steady-state temperature was 
+~33°C. This lined up very well with the model prediction 
+for the 2033-W power input and four active radiators.
+  In flight, there is no way to independently or directly 
+measure SACS input power, so it must be estimated 
+based on temperature using the flight model
+************************************************
+MATERIALS-DESIGN-PROMPT-METRICS-PLASMA-BLACK_HOLE_METRICS
+Shown are the pump 
+CV and accumulator 
+temperatures (°C) as 
+well as the system total 
+pressure (psia) and 
+delta-P (psid). 
+* When inside of 0.70 AU 
+(Umbra Attitude) the 
+solar array flap angle is 
+adjusted as a function 
+of solar distance to 
+keep the SACS 
+operating temperature 
+between 60 °C and 65 
+°C.
+ • To date, the system has 
+performed as designed
+ 26-30 August 2019, Newport News, VA
+ 30th Annual Thermal & Fluids Analysis Workshop            
+Spacecraft TCS Overview
+ 
+ The spacecraft (excluding the SACS) is a 
+passive thermal design that utilizes louvers, 
+multilayer insulation (MLI), and heaters along 
+with waste electronics heat dissipation to 
+maintain the core bus temperature between 
++10°C and +50°C. 
+ The internally mounted SACS and propulsion 
+components (the propellant tank and the 
+Sun-side geometry and the externally mounted components illuminated during 
+aphelion attitude (>0.80 AU) and aphelion-variable attitude (0.70 to 0.80 AU). At 
+solar distance less than 0.70 AU, the spacecraft flies in umbra attitude
+ 
+Spacecraft louver locations. Other than for short transients, all louvers are 
+maintained in solar shadow. The flight louvers were manufactured by the Sierra 
+Nevada Corporation, Louisville, CO. Also visible are ST-1 and ST-2
+ accumulator, pressure transducers, latching 
+valves, and fill and drain valves) are thermally 
+coupled to the bus and rely on the bus bulk 
+temperature to keep their respective 
+temperatures above freezing (both hydrazine 
+and water freeze at nearly the same 
+temperature) during cold spacecraft conditions. 
+ Two 20-blade and three 10-blade louvers are 
+utilized to help minimize bus heater power and 
+maintain the bulk bus temperature above 10°C. 
+ The battery is thermally isolated from the bus 
+and uses a seven-blade louver and software
+controlled heaters to maintain its nominal 
+temperature between 0°C and 15°C. 
+ The majority of the high-powered radio 
+frequency (RF) components are located on or 
+near the −Z aft deck and utilize two of the 10
+blade louvers to reduce bus heat leak when the 
+RF system is powered off 
+ 26-30 August 2019, Newport News, VA
+ 30th Annual Thermal & Fluids Analysis Workshop            
+Instrument TCS Overview
+  The body-mounted instruments are 
+thermally isolated from the bus and, 
+with the exception of Solar Probe 
+Analyzer (SPAN)-B, are located with 
+the louvers on the “cold side” of the 
+spacecraft (+X). 
+ The truss structure assembly-mounted 
+instruments, the four Electromagnetic 
+Fields Investigation instrument suite 
+(FIELDS) antennas, and the Solar 
+Probe Cup (SPC) are completely 
+isolated from the bus and are the only 
+instruments designed to withstand the 
+full solar constant when at minimum 
+perihelion.
+  The FIELDS magnetometers are 
+located on a 3.4-m boom and also are 
+thermally isolated from the bus 
+***********************************************************
+ During aphelion operation (outside of 0.70 AU), the spacecraft is tilted so as not to exceed 
+45° from +Z toward −X to allow for X-band (fan beam) and KA-band (HGA) communications. 
+ Inside of 0.82 AU, this angle can be adjusted anywhere between umbra pointing and 45° to 
+allow for proper HGA pointing toward Earth and also to relax the thermal input into the 
+SACS,  the externally mounted bus components, and the bus as long as the thermal attitude 
+does not interfere with HGA-KA-band operations. 
+ During this period, the externally mounted components on the −X side of the spacecraft 
+experienced near-mission-maximum temperatures (0.70 AU/45° tilt), and some the internally 
+mounted components experienced mission-maximum temperatures as well. 
+ These conditions are dependent on sun angle and will most likely repeat several more times 
+as the spacecraft adjusts its attitude to allow proper HGA pointing for KA-band downlink. 
+ So far in the mission, the spacecraft has experienced one of its two hot cases: during O-2 
+when near 0.70 AU and in aphelion-variable attitude while tilted 37° (1 March 2019) for KA
+band downlink using the high-gain antenna (HGA).
+  In the second and more severe hot case, predicted for the mission minimum perihelion 
+(9.86 RS), the external components will stay relatively cold and the temperature gradient 
+inside of the spacecraft will be from top to bottom (+Z to −Z) instead of from side to side (−X 
+to +X) so the internal components that were warm during this hot case will be a bit cooler 
+during the perihelion hot case and vice versa. 
+*******************************************************
